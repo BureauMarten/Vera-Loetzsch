@@ -5,6 +5,7 @@ import CookieBanner from '../components/legal/CookieBanner.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 
+
 interface Props {
   title: string;
   description: string;
@@ -21,7 +22,8 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const defaultNavItems = [
+const footerNavItems = [
+  { label: 'Home', href: '/' },
   { label: 'Leistungen', href: '/leistungen' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Blog', href: '/blog' },
@@ -58,13 +60,13 @@ const defaultNavItems = [
   </head>
   <body>
     <CookieBanner />
-    <Header logo="Vera Lötzsch" navItems={defaultNavItems} />
-    <main>
+    <Header />
+    <main style="padding-top: 4.5rem;">
       <slot />
     </main>
     <Footer
       companyName="Vera Lötzsch"
-      navItems={defaultNavItems}
+      navItems={footerNavItems}
     />
   </body>
 </html>

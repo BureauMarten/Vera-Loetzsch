@@ -1,152 +1,161 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/layout/PageHeader.astro';
 ---
 
 <BaseLayout
   title="Leistungen – Vera Lötzsch"
   description="Bühnen- und Theatermalerei, Fassadenmalerei, Wandmalerei, Dekorationsmalerei und Gemäldekopien."
 >
-  <PageHeader
-    title="Leistungen"
-    breadcrumb={[{ label: 'Leistungen', href: '/leistungen' }]}
-  />
+  <div class="page">
+    <div class="grid">
+      <!-- Text links (3fr) -->
+      <div class="text-col">
+        <p class="intro">
+          Als freiberufliche Bühnen- und Theatermalerin verfolge ich die Vision, Räume durch künstlerische Gestaltung zum Leben zu erwecken. Mein Fokus liegt auf der maßgeschneiderten Umsetzung der individuellen Wünsche meiner Kunden, sei es für Film- und Theaterkulissen, öffentliche Fassaden, Gastronomiebetriebe, Museen oder private Räume wie Kinderzimmer.
+        </p>
 
-  <div class="content">
-    <p class="intro">
-      Als freiberufliche Bühnen- und Theatermalerin verfolge ich die Vision, Räume durch künstlerische Gestaltung zum Leben zu erwecken. Mein Fokus liegt auf der maßgeschneiderten Umsetzung der individuellen Wünsche meiner Kunden, sei es für Film- und Theaterkulissen, öffentliche Fassaden, Gastronomiebetriebe, Museen oder private Räume wie Kinderzimmer.
-    </p>
+        <div class="leistungen">
+          <div class="leistung">
+            <h4>Theater- &amp; Bühnenmalerei</h4>
+            <p>Die malerische Gestaltung großformatiger Kulissen und Requisiten für Theater-, Oper-, Ballett-, Film- und Fernsehproduktionen.</p>
+            <ul>
+              <li>Patinieren</li>
+              <li>Schablonieren</li>
+              <li>Materialimitationen</li>
+              <li>Prospektmalerei</li>
+              <li>Requisitenmalerei</li>
+              <li>Oberflächenbehandlung und –versiegelung</li>
+              <li>Kaschurarbeiten</li>
+            </ul>
+          </div>
 
-    <div class="leistungen-grid">
-      <div class="leistung-card">
-        <h2>Theater- &amp; Bühnenmalerei</h2>
-        <p>Die malerische Gestaltung großformatiger Kulissen und Requisiten für Theater-, Oper-, Ballett-, Film- und Fernsehproduktionen.</p>
-        <ul>
-          <li>Patinieren</li>
-          <li>Schablonieren</li>
-          <li>Materialimitationen</li>
-          <li>Prospektmalerei</li>
-          <li>Requisitenmalerei</li>
-          <li>Oberflächenbehandlung und -versiegelung</li>
-          <li>Kaschurarbeiten</li>
-        </ul>
+          <div class="leistung">
+            <h4>Fassaden- &amp; Wandmalerei</h4>
+            <p>Ob fotorealistisch oder abstrakt – Entwurf, Beratung und Umsetzung Ihres Wunschmotivs.</p>
+            <ul>
+              <li>Fassadenmalerei</li>
+              <li>Wandmalerei</li>
+              <li>Dioramen</li>
+              <li>Illusionsmalerei</li>
+            </ul>
+          </div>
+
+          <div class="leistung">
+            <h4>Dekorationsmalerei</h4>
+            <p>Malerische Raumgestaltung und handwerkliche Kunstarbeiten für private und öffentliche Räume.</p>
+            <ul>
+              <li>Materialimitationen</li>
+              <li>Gemäldekopien</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="leistung-card">
-        <h2>Fassaden- &amp; Wandmalerei</h2>
-        <p>Ob fotorealistisch oder abstrakt – Entwurf, Beratung und Umsetzung Ihres Wunschmotivs.</p>
-        <ul>
-          <li>Fassadenmalerei</li>
-          <li>Wandmalerei</li>
-          <li>Dioramen</li>
-          <li>Illusionsmalerei</li>
-        </ul>
+      <!-- Bild rechts (2fr) — exakt wie Original: Fassade-Zeitz-web-03.jpg -->
+      <div class="img-col">
+        <img
+          src="/images/Fassade-Zeitz-web-03.jpg"
+          alt="Die Tänzerin – Fassadenmalerei Zeitz"
+        />
       </div>
-
-      <div class="leistung-card">
-        <h2>Dekorationsmalerei</h2>
-        <p>Malerische Raumgestaltung und handwerkliche Kunstarbeiten für private und öffentliche Räume.</p>
-        <ul>
-          <li>Materialimitationen</li>
-          <li>Gemäldekopien</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cta">
-      <a href="/kontakt" class="btn">Kontakt aufnehmen</a>
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .content {
+  .page {
+    padding: 0 8%;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: var(--spacing-section) 1.5rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 4rem;
+    padding: 4rem 0;
+    align-items: start;
+  }
+
+  .text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
   }
 
   .intro {
-    font-size: var(--text-lg);
-    max-width: var(--max-width-text);
-    margin: 0 0 3rem;
+    font-size: var(--text-base);
+    font-weight: 300;
+    line-height: 1.5;
     color: var(--color-text);
-    line-height: 1.7;
   }
 
-  .leistungen-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 3rem;
+  .leistungen {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
   }
 
-  .leistung-card {
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
-    padding: 2rem;
-    border: 1px solid var(--color-border);
+  .leistung {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  h2 {
-    font-size: var(--text-xl);
-    color: var(--color-primary);
-    margin: 0 0 0.75rem;
-  }
+  /* h4 kommt aus global.css: 22px, 600, #69727D */
 
   p {
-    color: var(--color-text-light);
-    font-size: var(--text-sm);
-    line-height: 1.6;
-    margin: 0 0 1.25rem;
+    font-size: var(--text-base);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--color-text);
   }
 
   ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: disc;
+    padding-left: 1.25em;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
   }
 
   li {
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
+    font-weight: 300;
     color: var(--color-text);
-    padding-left: 1rem;
-    position: relative;
+    line-height: 1.5;
   }
 
-  li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--color-accent);
+  .img-col {
+    position: sticky;
+    top: 5rem;
   }
 
-  .cta {
-    text-align: center;
+  .img-col img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
   }
 
-  .btn {
-    display: inline-block;
-    background-color: var(--color-primary);
-    color: #fff;
-    padding: 0.875rem 2.5rem;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    transition: background-color var(--transition-fast);
+  @media (max-width: 1024px) {
+    .page { padding: 0 5%; }
+    .grid { gap: 3rem; }
   }
 
-  .btn:hover {
-    background-color: var(--color-primary-dark);
-  }
-
-  @media (max-width: 900px) {
-    .leistungen-grid {
+  @media (max-width: 767px) {
+    .grid {
       grid-template-columns: 1fr;
+    }
+    .img-col {
+      order: -99999;
+      position: static;
+      min-height: 335px;
+      overflow: hidden;
+    }
+    .img-col img {
+      height: 335px;
+      object-fit: cover;
     }
   }
 </style>

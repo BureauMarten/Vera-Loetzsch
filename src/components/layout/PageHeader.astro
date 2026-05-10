@@ -36,21 +36,24 @@ const { title, subtitle, breadcrumb } = Astro.props;
 
 <style>
   .page-header {
-    background-color: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-    padding: 3rem 0;
+    background-color: var(--color-background);
+    padding: 3rem 0 2rem;
   }
 
   .page-header-inner {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 8%;
   }
 
   .breadcrumb {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .breadcrumb a {
@@ -63,15 +66,28 @@ const { title, subtitle, breadcrumb } = Astro.props;
   }
 
   h1 {
-    margin: 0 0 0.5rem;
-    font-size: var(--text-4xl);
+    margin: 0;
+    font-size: clamp(1.75rem, 4vw, 4.0625rem);
+    font-weight: 600;
     color: var(--color-primary);
+    line-height: 1.2;
   }
 
   .subtitle {
-    margin: 0;
-    font-size: var(--text-lg);
-    color: var(--color-text-light);
+    margin: 0.75rem 0 0;
+    font-size: var(--text-base);
+    font-weight: 300;
+    color: var(--color-text);
     max-width: var(--max-width-text);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1024px) {
+    .page-header-inner { padding: 0 5%; }
+  }
+
+  @media (max-width: 767px) {
+    .page-header-inner { padding: 0 1.5rem; }
+    .page-header { padding: 2rem 0 1.5rem; }
   }
 </style>

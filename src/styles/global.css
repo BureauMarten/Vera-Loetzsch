@@ -4,43 +4,45 @@
    DESIGN TOKENS — hier alles anpassen
    ═══════════════════════════════════════ */
 :root {
-  /* Farben — werden pro Projekt getauscht */
+  /* Farben — Elementor Kit #240 */
   --color-primary:        #1C244B;
   --color-primary-light:  #2e3a72;
   --color-primary-dark:   #10152c;
   --color-secondary:      #F3F5F8;
-  --color-accent:         #324A6D;
+  --color-accent:         #467FF7;
+  --color-text:           #324A6D;
+  --color-light-gray:     #C8D5DC;
+  --color-bg-light:       #F9FAFD;
 
   /* Neutrals */
-  --color-text:           #1a1a1a;
-  --color-text-light:     #6b7280;
+  --color-text-light:     #69727D;
   --color-text-muted:     #9ca3af;
   --color-background:     #ffffff;
-  --color-surface:        #f9fafb;
-  --color-surface-dark:   #f3f4f6;
-  --color-border:         #e5e7eb;
+  --color-surface:        #F9FAFD;
+  --color-surface-dark:   #F3F5F8;
+  --color-border:         #C8D5DC;
 
-  /* Typografie — wird pro Projekt getauscht */
-  --font-sans:    system-ui, sans-serif;
-  --font-heading: system-ui, sans-serif;
+  /* Typografie — system-ui wie Original */
+  --font-sans:    system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-heading: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
 
-  /* Schriftgrößen */
-  --text-xs:   0.75rem;
-  --text-sm:   0.875rem;
-  --text-base: 1rem;
-  --text-lg:   1.125rem;
-  --text-xl:   1.25rem;
-  --text-2xl:  1.5rem;
-  --text-3xl:  1.875rem;
-  --text-4xl:  2.25rem;
-  --text-5xl:  3rem;
+  /* Schriftgrößen — exakt aus Elementor Kit */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.375rem;   /* 22px */
+  --text-3xl:  2.25rem;    /* 36px */
+  --text-4xl:  4.0625rem;  /* 65px */
+  --text-5xl:  5.3125rem;  /* 85px */
 
   /* Abstände */
   --spacing-section:    5rem;
   --spacing-section-sm: 3rem;
-  --max-width:          1280px;
-  --max-width-text:     720px;
+  --max-width:          1460px;
+  --max-width-text:     800px;
 
   /* Border Radius */
   --radius-sm:   0.375rem;
@@ -81,11 +83,23 @@ body {
   margin: 0;
 }
 
-/* Überschriften */
+/* Überschriften — wie Elementor Kit */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+h4 {
+  font-size: var(--text-2xl);
+  color: var(--color-text-light);
+}
+
+/* Body text: font-weight 300 wie Original */
+body {
+  font-weight: 300;
 }
 
 /* Absatz Reset — kein ungewollter Außenabstand */
@@ -107,10 +121,15 @@ img {
   display: block;
 }
 
-/* Links */
+/* Links — wie Original: text-color, kein underline */
 a {
-  color: var(--color-primary);
+  color: var(--color-text);
+  text-decoration: none;
   transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-text);
 }
 
 /* ═══════════════════════════════════════
