@@ -28,7 +28,13 @@ import PageHeader from '../components/layout/PageHeader.astro';
       </p>
     </div>
 
-    <form class="contact-form" name="kontakt" method="POST" netlify>
+    <form class="contact-form" id="contact-form" novalidate>
+      <!-- Honeypot gegen Spam (versteckt per CSS) -->
+      <div class="field visually-hidden" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
       <div class="field">
         <label for="name">Name <span aria-hidden="true">*</span></label>
         <input type="text" id="name" name="name" required autocomplete="name" />
@@ -56,7 +62,9 @@ import PageHeader from '../components/layout/PageHeader.astro';
         </label>
       </div>
 
-      <button type="submit" class="btn">Nachricht senden</button>
+      <div id="form-message" class="form-message" role="alert" aria-live="polite"></div>
+
+      <button type="submit" class="btn" id="submit-btn">Nachricht senden</button>
     </form>
   </div>
 </BaseLayout>
@@ -97,6 +105,18 @@ import PageHeader from '../components/layout/PageHeader.astro';
     display: flex;
     flex-direction: column;
     gap: 0.375rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   label {
@@ -156,6 +176,27 @@ import PageHeader from '../components/layout/PageHeader.astro';
     color: var(--color-primary);
   }
 
+  .form-message {
+    font-size: var(--text-sm);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    display: none;
+  }
+
+  .form-message.success {
+    display: block;
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+  }
+
+  .form-message.error {
+    display: block;
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+  }
+
   .btn {
     display: inline-block;
     background-color: var(--color-primary);
@@ -175,6 +216,11 @@ import PageHeader from '../components/layout/PageHeader.astro';
     background-color: var(--color-primary-dark);
   }
 
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   @media (max-width: 768px) {
     .content {
       grid-template-columns: 1fr;
@@ -182,3 +228,43 @@ import PageHeader from '../components/layout/PageHeader.astro';
     }
   }
 </style>
+
+<script>
+  const form    = document.getElementById('contact-form') as HTMLFormElement;
+  const msgBox  = document.getElementById('form-message') as HTMLDivElement;
+  const btn     = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet …';
+    msgBox.className = 'form-message';
+    msgBox.textContent = '';
+
+    const data = new FormData(form);
+
+    try {
+      const res  = await fetch('/send.php', { method: 'POST', body: data });
+      const json = await res.json() as { success: boolean; message: string };
+
+      msgBox.textContent = json.message;
+      msgBox.className   = 'form-message ' + (json.success ? 'success' : 'error');
+
+      if (json.success) {
+        form.reset();
+      }
+    } catch {
+      msgBox.textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+      msgBox.className   = 'form-message error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Nachricht senden';
+    }
+  });
+</script>
