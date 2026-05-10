@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
+import Lightbox from '../../components/ui/Lightbox.astro';
 import imgCourbet from '../../assets/images/Courbet_Kopie-web.jpg';
 ---
 
@@ -42,6 +43,7 @@ import imgCourbet from '../../assets/images/Courbet_Kopie-web.jpg';
       <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
     </div>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>

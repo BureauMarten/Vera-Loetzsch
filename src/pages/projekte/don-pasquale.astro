@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
+import Lightbox from '../../components/ui/Lightbox.astro';
 import imgDon1 from '../../assets/images/Einzelbilder-web-08.jpg';
 import imgDon2 from '../../assets/images/IMG-20220515-WA0004.jpg';
 ---
@@ -44,6 +45,7 @@ import imgDon2 from '../../assets/images/IMG-20220515-WA0004.jpg';
       <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
     </div>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>

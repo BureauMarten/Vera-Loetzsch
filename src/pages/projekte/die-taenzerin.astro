@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
+import Lightbox from '../../components/ui/Lightbox.astro';
 import imgFassade03 from '../../assets/images/Fassade-Zeitz-web-03.jpg';
 import imgFassade01 from '../../assets/images/Fassade-Zeitz-web-01.jpg';
 import imgFassade02 from '../../assets/images/Fassade-Zeitz-web-02.jpg';
@@ -52,6 +53,7 @@ import imgImag1746 from '../../assets/images/IMAG1746-574x1024.jpg';
       <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
     </div>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>

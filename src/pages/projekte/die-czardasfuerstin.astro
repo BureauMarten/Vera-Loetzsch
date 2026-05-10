@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
+import Lightbox from '../../components/ui/Lightbox.astro';
 import img01 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-01.jpg';
 import img02 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-02.jpg';
 import img03 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-03.jpg';
@@ -54,6 +55,7 @@ const bilder = [
       <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
     </div>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
+import Lightbox from '../../components/ui/Lightbox.astro';
 import imgStrom02 from '../../assets/images/Stromkaesten-Rudolstadt-web-02.jpg';
 import imgStrom03 from '../../assets/images/Stromkaesten-Rudolstadt-web-03.jpg';
 import imgStrom04 from '../../assets/images/Stromkaesten-Rudolstadt-web-04.jpg';
@@ -50,6 +51,7 @@ import imgStrom08 from '../../assets/images/Stromkaesten-Rudolstadt-web-08.jpg';
       <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
     </div>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>

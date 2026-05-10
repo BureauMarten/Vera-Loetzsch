@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
+import Lightbox from '../../components/ui/Lightbox.astro';
 import imgStoerti1 from '../../assets/images/Stoerti_1.jpeg';
 import imgVera21 from '../../assets/images/Vera_2-1-e1721763383895.jpeg';
 import imgVera2 from '../../assets/images/Vera_2.jpeg';
@@ -49,6 +50,7 @@ const bilder = [
       <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
     </div>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>
