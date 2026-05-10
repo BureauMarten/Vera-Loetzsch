@@ -1,83 +1,95 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgCzardasfuerstin from '../assets/images/Die-Czardasfuerstin-Freiberg-web-01.jpg';
+import imgDonPasquale from '../assets/images/Einzelbilder-web-08.jpg';
+import imgStoertebeker from '../assets/images/Stoerti_1.jpeg';
+import imgTaenzerin from '../assets/images/Fassade-Zeitz-web-01.jpg';
+import imgStromkaesten from '../assets/images/Stromkaesten-Rudolstadt-web-02.jpg';
+import imgAuftragsmalerei from '../assets/images/Fassaden-und-Wandmalerei-web-01.jpg';
+import imgCourbet from '../assets/images/Courbet_Kopie-web.jpg';
+import imgSeville from '../assets/images/Seville_Kopie-web.jpg';
+import imgGrafiken from '../assets/images/Freie-Arbeiten-web-01.jpg';
+import imgSelbstportraets from '../assets/images/Freie-Arbeiten-web-04.jpg';
+import imgNihilist from '../assets/images/Freie-Arbeiten-web-05.jpg';
 
 const projekte = [
   {
     slug: 'die-czardasfuerstin',
     titel: 'Die Czardasfürstin',
     kategorie: 'Theater & Bühnen',
-    bild: '/images/Die-Czardasfuerstin-Freiberg-web-01.jpg',
+    bild: imgCzardasfuerstin,
     bildAlt: 'Die Czardasfürstin, Seebühne Kriebstein',
   },
   {
     slug: 'don-pasquale',
     titel: 'Don Pasquale',
     kategorie: 'Theater & Bühnen',
-    bild: '/images/Einzelbilder-web-08.jpg',
+    bild: imgDonPasquale,
     bildAlt: 'Don Pasquale, Mittelsächsisches Theater',
   },
   {
     slug: 'stoertebeker-festspiele-2024',
     titel: 'Störtebeker-Festspiele 2024',
     kategorie: 'Theater & Bühnen',
-    bild: '/images/Stoerti_1.jpeg',
+    bild: imgStoertebeker,
     bildAlt: 'Störtebeker-Festspiele 2024',
   },
   {
     slug: 'die-taenzerin',
     titel: 'Die Tänzerin',
     kategorie: 'Fassaden & Wände',
-    bild: '/images/Fassade-Zeitz-web-01.jpg',
+    bild: imgTaenzerin,
     bildAlt: 'Die Tänzerin – Fassadenmalerei Zeitz',
   },
   {
     slug: 'innerstaedtische-stromkaesten',
     titel: 'Innerstädtische Stromkästen',
     kategorie: 'Fassaden & Wände',
-    bild: '/images/Stromkaesten-Rudolstadt-web-02.jpg',
+    bild: imgStromkaesten,
     bildAlt: 'Bemalte Stromkästen, Rudolstadt',
   },
   {
     slug: 'auftragsmalerei-privat',
     titel: 'Auftragsmalerei (privat)',
     kategorie: 'Fassaden & Wände',
-    bild: '/images/Fassaden-und-Wandmalerei-web-01.jpg',
+    bild: imgAuftragsmalerei,
     bildAlt: 'Auftragsmalerei für privaten Haushalt, Dresden',
   },
   {
     slug: 'der-verzweifelte-gustave-courbet',
     titel: 'Der Verzweifelte – Gustave Courbet',
     kategorie: 'Gemäldekopien',
-    bild: '/images/Courbet_Kopie-web.jpg',
+    bild: imgCourbet,
     bildAlt: 'Gemäldekopie nach Gustave Courbet',
   },
   {
     slug: 'prop-jenny-saville',
     titel: 'Prop – Jenny Saville',
     kategorie: 'Gemäldekopien',
-    bild: '/images/Seville_Kopie-web.jpg',
+    bild: imgSeville,
     bildAlt: 'Gemäldekopie nach Jenny Saville',
   },
   {
     slug: 'grafiken',
     titel: 'Grafiken',
     kategorie: 'Freie Arbeiten',
-    bild: '/images/Freie-Arbeiten-web-01.jpg',
+    bild: imgGrafiken,
     bildAlt: 'Grafiken',
   },
   {
     slug: 'selbstportraets',
     titel: 'Selbstporträts',
     kategorie: 'Freie Arbeiten',
-    bild: '/images/Freie-Arbeiten-web-04.jpg',
+    bild: imgSelbstportraets,
     bildAlt: 'Selbstporträts',
   },
   {
     slug: 'nihilist',
     titel: 'Nihilist',
     kategorie: 'Freie Arbeiten',
-    bild: '/images/Freie-Arbeiten-web-05.jpg',
+    bild: imgNihilist,
     bildAlt: 'Nihilist – Lithografie',
   },
 ];
@@ -116,7 +128,7 @@ const kategorien = ['Alle', ...new Set(projekte.map(p => p.kategorie))];
           data-kategorie={p.kategorie}
         >
           <div class="img-wrap">
-            <img src={p.bild} alt={p.bildAlt} loading="lazy" />
+            <Image src={p.bild} alt={p.bildAlt} loading="lazy" />
           </div>
           <div class="project-info">
             <span class="kat-label">{p.kategorie}</span>

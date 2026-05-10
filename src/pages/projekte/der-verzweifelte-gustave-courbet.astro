@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgCourbet from '../../assets/images/Courbet_Kopie-web.jpg';
 ---
 
 <BaseLayout
@@ -27,13 +29,13 @@ import PageHeader from '../../components/layout/PageHeader.astro';
         <dt>Jahr</dt>
         <dd>2018</dd>
         <dt>Foto</dt>
-        <dd>Reiner Eckel, Zeitz</dd>
+        <dd>Privat</dd>
       </dl>
       <p>Studienarbeit zum Thema Gemäldekopie nach Gustave Courbet: Der Verzweifelte (Selbstbildnis).</p>
     </div>
 
     <div class="galerie galerie--single">
-      <img src="/images/Courbet_Kopie-web.jpg" alt="Gemäldekopie nach Gustave Courbet – Der Verzweifelte" />
+      <Image src={imgCourbet} alt="Gemäldekopie nach Gustave Courbet – Der Verzweifelte" />
     </div>
 
     <div class="nav-links">

@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgGrafik1 from '../../assets/images/Freie-Arbeiten-web-01.jpg';
+import imgGrafik2 from '../../assets/images/Freie-Arbeiten-web-02.jpg';
 ---
 
 <BaseLayout
@@ -24,8 +27,8 @@ import PageHeader from '../../components/layout/PageHeader.astro';
     </div>
 
     <div class="galerie">
-      <img src="/images/Freie-Arbeiten-web-01.jpg" alt="Grafiken – freie Arbeit 1" />
-      <img src="/images/Freie-Arbeiten-web-02.jpg" alt="Grafiken – freie Arbeit 2" loading="lazy" />
+      <Image src={imgGrafik1} alt="Grafiken – freie Arbeit 1" />
+      <Image src={imgGrafik2} alt="Grafiken – freie Arbeit 2" loading="lazy" />
     </div>
 
     <div class="nav-links">

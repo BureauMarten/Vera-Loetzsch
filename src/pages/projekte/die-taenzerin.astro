@@ -1,6 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgFassade03 from '../../assets/images/Fassade-Zeitz-web-03.jpg';
+import imgFassade01 from '../../assets/images/Fassade-Zeitz-web-01.jpg';
+import imgFassade02 from '../../assets/images/Fassade-Zeitz-web-02.jpg';
+import imgImag1685 from '../../assets/images/IMAG1685-574x1024.jpg';
+import imgImag1746 from '../../assets/images/IMAG1746-574x1024.jpg';
 ---
 
 <BaseLayout
@@ -35,11 +41,11 @@ import PageHeader from '../../components/layout/PageHeader.astro';
     </div>
 
     <div class="galerie">
-      <img src="/images/Fassade-Zeitz-web-03.jpg" alt="Die Tänzerin – Fassade Zeitz, Gesamtansicht" />
-      <img src="/images/Fassade-Zeitz-web-01.jpg" alt="Die Tänzerin – Fassade Zeitz" loading="lazy" />
-      <img src="/images/Fassade-Zeitz-web-02.jpg" alt="Die Tänzerin – Fassade Zeitz, Detailansicht" loading="lazy" />
-      <img src="/images/IMAG1685-574x1024.jpg" alt="Die Tänzerin – Arbeitsfortschritt" loading="lazy" />
-      <img src="/images/IMAG1746-574x1024.jpg" alt="Die Tänzerin – Arbeitsfortschritt" loading="lazy" />
+      <Image src={imgFassade03} alt="Die Tänzerin – Fassade Zeitz, Gesamtansicht" />
+      <Image src={imgFassade01} alt="Die Tänzerin – Fassade Zeitz" loading="lazy" />
+      <Image src={imgFassade02} alt="Die Tänzerin – Fassade Zeitz, Detailansicht" loading="lazy" />
+      <Image src={imgImag1685} alt="Die Tänzerin – Arbeitsfortschritt" loading="lazy" />
+      <Image src={imgImag1746} alt="Die Tänzerin – Arbeitsfortschritt" loading="lazy" />
     </div>
 
     <div class="nav-links">

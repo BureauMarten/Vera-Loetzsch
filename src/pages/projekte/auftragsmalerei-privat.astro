@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgWand1 from '../../assets/images/Fassaden-und-Wandmalerei-web-01.jpg';
+import imgWand2 from '../../assets/images/Fassaden-und-Wandmalerei-web-02.jpg';
 ---
 
 <BaseLayout
@@ -29,8 +32,8 @@ import PageHeader from '../../components/layout/PageHeader.astro';
     </div>
 
     <div class="galerie">
-      <img src="/images/Fassaden-und-Wandmalerei-web-01.jpg" alt="Auftragsmalerei privat, Dresden 1" />
-      <img src="/images/Fassaden-und-Wandmalerei-web-02.jpg" alt="Auftragsmalerei privat, Dresden 2" loading="lazy" />
+      <Image src={imgWand1} alt="Auftragsmalerei privat, Dresden 1" />
+      <Image src={imgWand2} alt="Auftragsmalerei privat, Dresden 2" loading="lazy" />
     </div>
 
     <div class="nav-links">

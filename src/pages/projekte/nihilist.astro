@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgNihilist from '../../assets/images/Freie-Arbeiten-web-05.jpg';
 ---
 
 <BaseLayout
@@ -28,7 +30,7 @@ import PageHeader from '../../components/layout/PageHeader.astro';
     </div>
 
     <div class="galerie galerie--single">
-      <img src="/images/Freie-Arbeiten-web-05.jpg" alt="Nihilist – Lithografie 2017" />
+      <Image src={imgNihilist} alt="Nihilist – Lithografie 2017" />
     </div>
 
     <div class="nav-links">

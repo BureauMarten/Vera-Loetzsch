@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgStrom02 from '../../assets/images/Stromkaesten-Rudolstadt-web-02.jpg';
+import imgStrom03 from '../../assets/images/Stromkaesten-Rudolstadt-web-03.jpg';
+import imgStrom04 from '../../assets/images/Stromkaesten-Rudolstadt-web-04.jpg';
+import imgStrom06 from '../../assets/images/Stromkaesten-Rudolstadt-web-06.jpg';
+import imgStrom07 from '../../assets/images/Stromkaesten-Rudolstadt-web-07.jpg';
+import imgStrom08 from '../../assets/images/Stromkaesten-Rudolstadt-web-08.jpg';
 ---
 
 <BaseLayout
@@ -28,14 +35,14 @@ import PageHeader from '../../components/layout/PageHeader.astro';
 
     <div class="galerie">
       {[
-        { src: '/images/Stromkaesten-Rudolstadt-web-02.jpg', alt: 'Bemalter Stromkasten Rudolstadt 1' },
-        { src: '/images/Stromkaesten-Rudolstadt-web-03.jpg', alt: 'Bemalter Stromkasten Rudolstadt 2' },
-        { src: '/images/Stromkaesten-Rudolstadt-web-04.jpg', alt: 'Bemalter Stromkasten Rudolstadt 3' },
-        { src: '/images/Stromkaesten-Rudolstadt-web-06.jpg', alt: 'Bemalter Stromkasten Rudolstadt 4' },
-        { src: '/images/Stromkaesten-Rudolstadt-web-07.jpg', alt: 'Bemalter Stromkasten Rudolstadt 5' },
-        { src: '/images/Stromkaesten-Rudolstadt-web-08.jpg', alt: 'Bemalter Stromkasten Rudolstadt 6' },
+        { src: imgStrom02, alt: 'Bemalter Stromkasten Rudolstadt 1' },
+        { src: imgStrom03, alt: 'Bemalter Stromkasten Rudolstadt 2' },
+        { src: imgStrom04, alt: 'Bemalter Stromkasten Rudolstadt 3' },
+        { src: imgStrom06, alt: 'Bemalter Stromkasten Rudolstadt 4' },
+        { src: imgStrom07, alt: 'Bemalter Stromkasten Rudolstadt 5' },
+        { src: imgStrom08, alt: 'Bemalter Stromkasten Rudolstadt 6' },
       ].map(b => (
-        <img src={b.src} alt={b.alt} loading="lazy" />
+        <Image src={b.src} alt={b.alt} loading="lazy" />
       ))}
     </div>
 

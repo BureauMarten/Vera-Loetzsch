@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgLitho from '../../assets/images/Freie-Arbeiten-web-04.jpg';
+import imgOel from '../../assets/images/Freie-Arbeiten-web-03.jpg';
 ---
 
 <BaseLayout
@@ -25,11 +28,11 @@ import PageHeader from '../../components/layout/PageHeader.astro';
 
     <div class="galerie">
       <figure>
-        <img src="/images/Freie-Arbeiten-web-04.jpg" alt="Selbstportrait – Lithografie 2017" />
+        <Image src={imgLitho} alt="Selbstportrait – Lithografie 2017" />
         <figcaption>Lithografie, 2017</figcaption>
       </figure>
       <figure>
-        <img src="/images/Freie-Arbeiten-web-03.jpg" alt="Selbstportrait – Öl auf Papier 2023" loading="lazy" />
+        <Image src={imgOel} alt="Selbstportrait – Öl auf Papier 2023" loading="lazy" />
         <figcaption>Selbstportrait, Öl auf Papier, 2023</figcaption>
       </figure>
     </div>

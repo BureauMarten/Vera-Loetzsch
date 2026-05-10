@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgSeville from '../../assets/images/Seville_Kopie-web.jpg';
 ---
 
 <BaseLayout
@@ -31,7 +33,7 @@ import PageHeader from '../../components/layout/PageHeader.astro';
     </div>
 
     <div class="galerie galerie--single">
-      <img src="/images/Seville_Kopie-web.jpg" alt="Gemäldekopie nach Jenny Saville – Propped" />
+      <Image src={imgSeville} alt="Gemäldekopie nach Jenny Saville – Propped" />
     </div>
 
     <div class="nav-links">

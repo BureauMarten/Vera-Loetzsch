@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgDon1 from '../../assets/images/Einzelbilder-web-08.jpg';
+import imgDon2 from '../../assets/images/IMG-20220515-WA0004.jpg';
 ---
 
 <BaseLayout
@@ -33,8 +36,8 @@ import PageHeader from '../../components/layout/PageHeader.astro';
     </div>
 
     <div class="galerie galerie--single">
-      <img src="/images/Einzelbilder-web-08.jpg" alt="Don Pasquale, Mittelsächsisches Theater" />
-      <img src="/images/IMG-20220515-WA0004.jpg" alt="Don Pasquale – Detailaufnahme" loading="lazy" />
+      <Image src={imgDon1} alt="Don Pasquale, Mittelsächsisches Theater" />
+      <Image src={imgDon2} alt="Don Pasquale – Detailaufnahme" loading="lazy" />
     </div>
 
     <div class="nav-links">

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import imgFassadeZeitz from '../assets/images/Fassade-Zeitz-web-03.jpg';
 ---
 
 <BaseLayout
@@ -53,8 +55,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <!-- Bild rechts (2fr) — exakt wie Original: Fassade-Zeitz-web-03.jpg -->
       <div class="img-col">
-        <img
-          src="/images/Fassade-Zeitz-web-03.jpg"
+        <Image
+          src={imgFassadeZeitz}
           alt="Die Tänzerin – Fassadenmalerei Zeitz"
         />
       </div>
@@ -127,8 +129,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .img-col {
-    position: sticky;
-    top: 5rem;
   }
 
   .img-col img {
@@ -136,6 +136,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     height: auto;
     object-fit: cover;
     display: block;
+    border-radius: var(--radius-md);
   }
 
   @media (max-width: 1024px) {

@@ -1,11 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'Wie werde ich Theatermaler*in?',
+  description: 'Ausbildung und Studium zur Theatermaler*in: zwei Wege in den Beruf, Voraussetzungen und Berufsaussichten.',
+  url: 'https://vera-loetzsch.de/blog/wie-werde-ich-theatermalerin',
+  author: { '@type': 'Person', name: 'Vera Lötzsch', url: 'https://vera-loetzsch.de' },
+  publisher: { '@type': 'Person', name: 'Vera Lötzsch', url: 'https://vera-loetzsch.de' },
+  inLanguage: 'de',
+};
 ---
 
 <BaseLayout
   title="Wie werde ich Theatermaler*in? – Vera Lötzsch"
   description="Ausbildung und Studium zur Theatermaler*in: zwei Wege in den Beruf, Voraussetzungen und Berufsaussichten."
+  jsonLd={jsonLd}
 >
   <PageHeader
     title="Wie werde ich Theatermaler*in?"

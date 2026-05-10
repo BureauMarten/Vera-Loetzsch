@@ -1,12 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import img01 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-01.jpg';
+import img02 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-02.jpg';
+import img03 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-03.jpg';
+import img04 from '../../assets/images/Die-Czardasfuerstin-Freiberg-web-04.jpg';
 
 const bilder = [
-  { src: '/images/Die-Czardasfuerstin-Freiberg-web-01.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 1' },
-  { src: '/images/Die-Czardasfuerstin-Freiberg-web-02.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 2' },
-  { src: '/images/Die-Czardasfuerstin-Freiberg-web-03.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 3' },
-  { src: '/images/Die-Czardasfuerstin-Freiberg-web-04.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 4' },
+  { src: img01, alt: 'Die Czardasfürstin – Seebühne Kriebstein 1' },
+  { src: img02, alt: 'Die Czardasfürstin – Seebühne Kriebstein 2' },
+  { src: img03, alt: 'Die Czardasfürstin – Seebühne Kriebstein 3' },
+  { src: img04, alt: 'Die Czardasfürstin – Seebühne Kriebstein 4' },
 ];
 ---
 
@@ -41,7 +46,7 @@ const bilder = [
 
     <div class="galerie">
       {bilder.map(b => (
-        <img src={b.src} alt={b.alt} loading="lazy" />
+        <Image src={b.src} alt={b.alt} loading="lazy" />
       ))}
     </div>
 

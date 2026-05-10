@@ -5,12 +5,12 @@ import CookieBanner from '../components/legal/CookieBanner.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 
-
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   noindex?: boolean;
+  jsonLd?: object | object[];
 }
 
 const {
@@ -18,9 +18,11 @@ const {
   description,
   ogImage = '/og-default.jpg',
   noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageAbsolute = new URL(ogImage, Astro.site).toString();
 
 const footerNavItems = [
   { label: 'Home', href: '/' },
@@ -30,6 +32,37 @@ const footerNavItems = [
   { label: 'Über', href: '/ueber' },
   { label: 'Kontakt', href: '/kontakt' },
 ];
+
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Vera Lötzsch',
+  jobTitle: 'Bühnen- und Theatermalerin',
+  url: 'https://vera-loetzsch.de',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Leipzig',
+    addressCountry: 'DE',
+  },
+  sameAs: [],
+};
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Vera Lötzsch – Bühnen- & Theatermalerin',
+  url: 'https://vera-loetzsch.de',
+  description: 'Freiberufliche Bühnen- und Theatermalerin aus Leipzig. Theatermalerei, Fassadenmalerei, Wandmalerei und Gemäldekopien.',
+  image: ogImageAbsolute,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Leipzig',
+    addressCountry: 'DE',
+  },
+  priceRange: '€€',
+};
+
+const structuredData = jsonLd ?? [defaultJsonLd, localBusinessJsonLd];
 ---
 
 <!DOCTYPE html>
@@ -37,7 +70,10 @@ const footerNavItems = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <SEO
@@ -49,19 +85,33 @@ const footerNavItems = [
         basic: {
           title: title,
           type: 'website',
-          image: ogImage,
+          image: ogImageAbsolute,
+          url: canonicalURL.toString(),
         },
         optional: {
           description: description,
           locale: 'de_DE',
+          siteName: 'Vera Lötzsch – Bühnen- & Theatermalerin',
+        },
+        image: {
+          alt: title,
         },
       }}
+      twitter={{
+        card: 'summary_large_image',
+        title: title,
+        description: description,
+        image: ogImageAbsolute,
+        imageAlt: title,
+      }}
     />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <CookieBanner />
     <Header />
-    <main style="padding-top: 4.5rem;">
+    <main>
       <slot />
     </main>
     <Footer

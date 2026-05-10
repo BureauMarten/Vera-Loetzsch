@@ -1,13 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgStoerti1 from '../../assets/images/Stoerti_1.jpeg';
+import imgVera21 from '../../assets/images/Vera_2-1-e1721763383895.jpeg';
+import imgVera2 from '../../assets/images/Vera_2.jpeg';
+import imgVera3 from '../../assets/images/Vera_3.jpeg';
+import imgUebersicht from '../../assets/images/12314d25-8505-4ca7-88bb-e017d9a262f2.jpg';
 
 const bilder = [
-  { src: '/images/Stoerti_1.jpeg', alt: 'Störtebeker-Festspiele 2024 – Bühnenbild' },
-  { src: '/images/Vera_2-1-e1721763383895.jpeg', alt: 'Störtebeker-Festspiele 2024 – Malarbeit' },
-  { src: '/images/Vera_2.jpeg', alt: 'Störtebeker-Festspiele 2024' },
-  { src: '/images/Vera_3.jpeg', alt: 'Störtebeker-Festspiele 2024' },
-  { src: '/images/12314d25-8505-4ca7-88bb-e017d9a262f2.jpg', alt: 'Störtebeker-Festspiele 2024 – Übersicht' },
+  { src: imgStoerti1, alt: 'Störtebeker-Festspiele 2024 – Bühnenbild' },
+  { src: imgVera21, alt: 'Störtebeker-Festspiele 2024 – Malarbeit' },
+  { src: imgVera2, alt: 'Störtebeker-Festspiele 2024' },
+  { src: imgVera3, alt: 'Störtebeker-Festspiele 2024' },
+  { src: imgUebersicht, alt: 'Störtebeker-Festspiele 2024 – Übersicht' },
 ];
 ---
 
@@ -35,7 +41,7 @@ const bilder = [
 
     <div class="galerie">
       {bilder.map(b => (
-        <img src={b.src} alt={b.alt} loading="lazy" />
+        <Image src={b.src} alt={b.alt} loading="lazy" />
       ))}
     </div>
 

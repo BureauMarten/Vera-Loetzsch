@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgPortrait from '../assets/images/Freie-Arbeiten-web-04.jpg';
 ---
 
 <BaseLayout
@@ -14,8 +16,8 @@ import PageHeader from '../components/layout/PageHeader.astro';
 
   <div class="content">
     <div class="portrait">
-      <img
-        src="/images/Vera_2.jpeg"
+      <Image
+        src={imgPortrait}
         alt="Vera Lötzsch"
         class="portrait-img"
       />

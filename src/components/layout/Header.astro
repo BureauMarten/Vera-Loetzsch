@@ -12,7 +12,10 @@ const navItems = [
 
 <header class="site-header" id="site-header">
   <div class="header-inner">
-    <a href="/" class="logo" aria-label="Vera Lötzsch – Startseite">Vera Lötzsch</a>
+    <a href="/" class="logo" aria-label="Vera Lötzsch – Startseite">
+      <span class="logo-name">Vera Lötzsch</span>
+      <span class="logo-sub">Bühnen- &amp; Theatermalerin</span>
+    </a>
 
     <nav class="nav-desktop" aria-label="Hauptnavigation">
       {navItems.map(item => (
@@ -94,12 +97,26 @@ const navItems = [
   }
 
   .logo {
-    font-size: 1.125rem;
-    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
     color: var(--color-primary);
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
+    line-height: 1.2;
+  }
+
+  .logo-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .logo-sub {
+    font-size: 0.6875rem;
+    font-weight: 300;
+    color: var(--color-text-light);
+    letter-spacing: 0.02em;
   }
 
   .nav-desktop {
@@ -107,6 +124,7 @@ const navItems = [
     align-items: center;
     gap: 2rem;
     flex: 1;
+    justify-content: flex-end;
   }
 
   .nav-link {

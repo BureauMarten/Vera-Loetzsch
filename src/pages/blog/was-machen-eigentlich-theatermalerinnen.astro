@@ -1,11 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'Was machen eigentlich Theatermaler*innen?',
+  description: 'Theatermaler*innen sind für die malerische Umsetzung des Bühnenbildes verantwortlich. Erfahre mehr über diesen Beruf.',
+  url: 'https://vera-loetzsch.de/blog/was-machen-eigentlich-theatermalerinnen',
+  author: { '@type': 'Person', name: 'Vera Lötzsch', url: 'https://vera-loetzsch.de' },
+  publisher: { '@type': 'Person', name: 'Vera Lötzsch', url: 'https://vera-loetzsch.de' },
+  inLanguage: 'de',
+};
 ---
 
 <BaseLayout
   title="Was machen eigentlich Theatermaler*innen? – Vera Lötzsch"
   description="Theatermaler*innen sind für die malerische Umsetzung des Bühnenbildes verantwortlich. Erfahre mehr über diesen Beruf."
+  jsonLd={jsonLd}
 >
   <PageHeader
     title="Was machen eigentlich Theatermaler*innen?"
