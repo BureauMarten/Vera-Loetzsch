@@ -1,0 +1,81 @@
+---
+interface Service {
+  title: string;
+  text: string;
+  icon?: string;
+}
+
+interface Props {
+  services: Service[];
+  columns?: 2 | 3 | 4;
+}
+
+const { services, columns = 3 } = Astro.props;
+---
+
+<section class="service-grid">
+  <div class="service-grid-inner" style={`--columns: ${columns}`}>
+    {services.map((service) => (
+      <div class="service-card">
+        {service.icon && <span class="icon" aria-hidden="true">{service.icon}</span>}
+        <h3>{service.title}</h3>
+        <p>{service.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .service-grid {
+    padding: var(--spacing-section) 1.5rem;
+    background-color: var(--color-surface);
+  }
+
+  .service-grid-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .service-grid-inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .service-grid-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .service-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

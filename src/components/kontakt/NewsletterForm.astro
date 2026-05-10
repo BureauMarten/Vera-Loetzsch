@@ -1,0 +1,145 @@
+---
+interface Props {
+  action?: string;
+  placeholder?: string;
+  buttonLabel?: string;
+  title?: string;
+  text?: string;
+  background?: 'white' | 'light' | 'primary';
+  layout?: 'inline' | 'stacked';
+}
+
+const {
+  action = '/newsletter',
+  placeholder = 'Ihre E-Mail-Adresse',
+  buttonLabel = 'Anmelden',
+  title,
+  text,
+  background = 'light',
+  layout = 'inline',
+} = Astro.props;
+---
+
+<section class:list={['newsletter-section', `bg-${background}`]}>
+  <div class="newsletter-inner">
+    {(title || text) && (
+      <div class="newsletter-text">
+        {title && <h2>{title}</h2>}
+        {text  && <p>{text}</p>}
+      </div>
+    )}
+    <form
+      class:list={['newsletter-form', `layout-${layout}`]}
+      method="POST"
+      action={action}
+    >
+      <!-- Honeypot -->
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+      <label for="nl-email" class="sr-only">E-Mail-Adresse</label>
+      <input
+        type="email"
+        id="nl-email"
+        name="email"
+        required
+        placeholder={placeholder}
+        autocomplete="email"
+        aria-label={placeholder}
+      />
+      <button type="submit">{buttonLabel}</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .newsletter-section { padding: var(--spacing-section) 1.5rem; }
+  .bg-white   { background-color: var(--color-background); }
+  .bg-light   { background-color: var(--color-surface); }
+  .bg-primary { background-color: var(--color-primary); color: #fff; }
+
+  .newsletter-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+    margin: 0;
+    color: inherit;
+  }
+
+  p { font-size: var(--text-base); margin: 0; opacity: 0.85; }
+
+  .newsletter-form {
+    width: 100%;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .layout-stacked { flex-direction: column; }
+
+  input[type='email'] {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast);
+  }
+
+  .bg-primary input[type='email'] {
+    border-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+
+  .bg-primary input[type='email']::placeholder { color: rgba(255,255,255,0.6); }
+
+  input[type='email']:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(26,46,74,0.1);
+  }
+
+  button {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color var(--transition-fast);
+  }
+
+  .bg-primary button {
+    background-color: var(--color-accent);
+  }
+
+  button:hover { background-color: var(--color-primary-light); }
+  .bg-primary button:hover { opacity: 0.85; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-form { flex-direction: column; }
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+interface Props {
+  action?: string;
+  privacyHref?: string;
+  fileUpload?: boolean;
+  successMessage?: string;
+  selectLabel?: string;
+  selectOptions?: string[];
+}
+
+const {
+  action = '/kontakt',
+  privacyHref = '/datenschutz',
+  fileUpload = true,
+  successMessage = 'Vielen Dank! Ihre Nachricht wurde übermittelt.',
+  selectLabel = 'Betreff *',
+  selectOptions = ['Allgemeine Anfrage', 'Angebot anfragen', 'Support', 'Zusammenarbeit', 'Sonstiges'],
+} = Astro.props;
+---
+
+<form class="contact-form" method="POST" action={action} enctype="multipart/form-data">
+  <!-- Honeypot gegen Spam — muss leer bleiben -->
+  <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="name">Name *</label>
+      <input type="text" id="name" name="name" required autocomplete="name" placeholder="Max Mustermann" />
+    </div>
+    <div class="form-group">
+      <label for="email">E-Mail *</label>
+      <input type="email" id="email" name="email" required autocomplete="email" placeholder="max@beispiel.de" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="betreff">{selectLabel}</label>
+    <select id="betreff" name="betreff" required>
+      <option value="" disabled selected>Bitte wählen …</option>
+      {selectOptions.map((opt) => (
+        <option value={opt}>{opt}</option>
+      ))}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="telefon">Telefon (optional)</label>
+    <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="+49 123 456789" />
+  </div>
+
+  <div class="form-group">
+    <label for="nachricht">Nachricht *</label>
+    <textarea id="nachricht" name="nachricht" required rows="6" placeholder="Ihre Nachricht..."></textarea>
+  </div>
+
+  {fileUpload && (
+    <div class="form-group">
+      <label for="datei">Dateianhang (PDF, JPG, DOC – max. 10 MB)</label>
+      <input
+        type="file"
+        id="datei"
+        name="datei"
+        accept=".pdf,.jpg,.jpeg,.doc,.docx"
+      />
+    </div>
+  )}
+
+  <div class="form-group form-checkbox">
+    <input type="checkbox" id="datenschutz" name="datenschutz" required />
+    <label for="datenschutz">
+      Ich habe die <a href={privacyHref}>Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *
+    </label>
+  </div>
+
+  <button type="submit" class="submit-btn">Nachricht senden</button>
+
+  <p class="required-note">* Pflichtfelder</p>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    transition: border-color var(--transition-fast);
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(26, 46, 74, 0.1);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input[type="file"] {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  .form-checkbox {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  .form-checkbox input {
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    accent-color: var(--color-primary);
+  }
+
+  .form-checkbox label {
+    font-weight: 400;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  .form-checkbox a {
+    color: var(--color-primary);
+  }
+
+  .submit-btn {
+    align-self: flex-start;
+    background-color: var(--color-primary);
+    color: #fff;
+    font-size: var(--text-base);
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .submit-btn:hover {
+    background-color: var(--color-primary-light);
+  }
+
+  .required-note {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+</style>

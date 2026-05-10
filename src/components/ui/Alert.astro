@@ -1,0 +1,83 @@
+---
+interface Props {
+  variant?: 'info' | 'success' | 'warning' | 'error';
+  title?: string;
+  dismissible?: boolean;
+}
+
+const { variant = 'info', title, dismissible = true } = Astro.props;
+
+const icons = {
+  info:    'ℹ',
+  success: '✓',
+  warning: '⚠',
+  error:   '✕',
+};
+---
+
+<div class:list={['alert', `alert-${variant}`]} role="alert" aria-live="polite">
+  <span class="alert-icon" aria-hidden="true">{icons[variant]}</span>
+  <div class="alert-body">
+    {title && <p class="alert-title">{title}</p>}
+    <div class="alert-content"><slot /></div>
+  </div>
+  {dismissible && (
+    <button class="alert-dismiss" type="button" aria-label="Hinweis schließen">✕</button>
+  )}
+</div>
+
+<style>
+  .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .alert-info    { background-color: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+  .alert-success { background-color: #f0fdf4; border-color: #16a34a; color: #166534; }
+  .alert-warning { background-color: #fffbeb; border-color: #d97706; color: #92400e; }
+  .alert-error   { background-color: #fef2f2; border-color: #dc2626; color: #991b1b; }
+
+  .alert-icon {
+    font-size: var(--text-base);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .alert-body { flex: 1; }
+
+  .alert-title {
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+  }
+
+  .alert-content { margin: 0; }
+
+  .alert-dismiss {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    padding: 0;
+    font-size: var(--text-base);
+    line-height: 1;
+    flex-shrink: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .alert-dismiss:hover { opacity: 1; }
+</style>
+
+<script>
+  document.querySelectorAll('.alert-dismiss').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.closest('.alert')?.remove();
+    });
+  });
+</script>

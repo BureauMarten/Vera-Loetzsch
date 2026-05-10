@@ -1,0 +1,195 @@
+---
+interface Props {
+  // Layout
+  span?: 1 | 2 | 3 | 'full'; // Spaltenbreite
+  rowSpan?: 1 | 2;            // Zeilenhöhe
+  minHeight?: string;          // default: '280px'
+
+  // Variante
+  variant?: 'image' | 'text' | 'stat';
+
+  // Bild
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: 'center' | 'top' | 'bottom';
+  overlay?: boolean;           // Dunkles Overlay über Bild
+
+  // Text / Inhalt
+  eyebrow?: string;
+  headline?: string;
+  text?: string;
+  stat?: string;               // Große Kennzahl, z.B. "120+"
+  statLabel?: string;
+
+  // Stil
+  bg?: string;                 // Hintergrundfarbe
+  textColor?: string;          // Textfarbe (default: auto je nach bg)
+  href?: string;               // Optionaler Link auf die ganze Kachel
+  radius?: string;             // default: var(--radius-md)
+
+  // Content-Ausrichtung
+  align?: 'start' | 'center' | 'end';
+  justify?: 'start' | 'center' | 'end';
+}
+
+const {
+  span = 1,
+  rowSpan = 1,
+  minHeight = '280px',
+  variant = 'text',
+  image,
+  imageAlt = '',
+  imagePosition = 'center',
+  overlay = false,
+  eyebrow,
+  headline,
+  text,
+  stat,
+  statLabel,
+  bg = 'var(--color-surface)',
+  textColor,
+  href,
+  radius = 'var(--radius-md)',
+  align = 'start',
+  justify = 'end',
+} = Astro.props;
+
+const colSpan = span === 'full' ? '1 / -1' : `span ${span}`;
+const resolvedTextColor = textColor ?? (variant === 'image' ? '#fff' : 'var(--color-text)');
+
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  class:list={['bento-item', `variant-${variant}`, `align-${align}`, `justify-${justify}`]}
+  style={[
+    `grid-column: ${colSpan}`,
+    `grid-row: span ${rowSpan}`,
+    `min-height: ${minHeight}`,
+    `--item-bg: ${bg}`,
+    `--item-color: ${resolvedTextColor}`,
+    `--item-radius: ${radius}`,
+  ].join('; ')}
+  href={href}
+>
+  {variant === 'image' && image && (
+    <img
+      src={image}
+      alt={imageAlt}
+      class="item-image"
+      style={`object-position: ${imagePosition}`}
+      loading="lazy"
+    />
+  )}
+
+  {overlay && variant === 'image' && <div class="item-overlay" />}
+
+  <div class="item-content">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    {stat && <p class="stat">{stat}</p>}
+    {statLabel && <p class="stat-label">{statLabel}</p>}
+    {headline && <p class="headline">{headline}</p>}
+    {text && <p class="body">{text}</p>}
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  .bento-item {
+    position: relative;
+    background-color: var(--item-bg);
+    border-radius: var(--item-radius);
+    overflow: hidden;
+    color: var(--item-color);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  a.bento-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Bild */
+  .item-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  }
+
+  /* Content-Schicht über Bild */
+  .item-content {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    flex: 1;
+  }
+
+  /* Ausrichtung */
+  .bento-item.justify-end   .item-content { justify-content: flex-end; }
+  .bento-item.justify-center .item-content { justify-content: center; }
+  .bento-item.justify-start  .item-content { justify-content: flex-start; }
+
+  .bento-item.align-center .item-content { align-items: center; text-align: center; }
+  .bento-item.align-end    .item-content { align-items: flex-end; text-align: right; }
+
+  /* Typografie */
+  .eyebrow {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .stat {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    color: var(--item-color);
+  }
+
+  .stat-label {
+    font-size: var(--text-sm);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .headline {
+    font-size: clamp(1.25rem, 2.5vw, var(--text-2xl));
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--item-color);
+  }
+
+  .body {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  /* Mobile: alle Kacheln volle Breite */
+  @media (max-width: 640px) {
+    .bento-item {
+      grid-column: 1 / -1 !important;
+      grid-row: span 1 !important;
+    }
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+interface Feature {
+  icon?: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  features: Feature[];
+  columns?: 2 | 3 | 4;
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+  background?: 'white' | 'light';
+  iconStyle?: 'text' | 'circle';
+}
+
+const {
+  features,
+  columns = 3,
+  eyebrow,
+  title,
+  text,
+  background = 'white',
+  iconStyle = 'circle',
+} = Astro.props;
+---
+
+<section class:list={['feature-section', `bg-${background}`]}>
+  <div class="feature-inner">
+    {(eyebrow || title || text) && (
+      <div class="feature-header">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        {title   && <h2>{title}</h2>}
+        {text    && <p class="intro">{text}</p>}
+      </div>
+    )}
+
+    <div class="feature-grid" style={`--columns: ${columns}`}>
+      {features.map((feature) => (
+        <div class="feature-item">
+          {feature.icon && (
+            <div class:list={['feature-icon', `icon-${iconStyle}`]} aria-hidden="true">
+              {feature.icon}
+            </div>
+          )}
+          <h3>{feature.title}</h3>
+          <p>{feature.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-section { padding: var(--spacing-section) 1.5rem; }
+  .bg-white { background-color: var(--color-background); }
+  .bg-light { background-color: var(--color-surface); }
+
+  .feature-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .feature-header {
+    text-align: center;
+    max-width: var(--max-width-text);
+    margin: 0 auto 3rem;
+  }
+
+  .eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 0.75rem;
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+  }
+
+  .intro {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 1024px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px)  { .feature-grid { grid-template-columns: 1fr; } }
+
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .icon-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

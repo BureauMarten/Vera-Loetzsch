@@ -1,0 +1,54 @@
+---
+interface Props {
+  href?: string;
+  padding?: 'sm' | 'md' | 'lg' | 'none';
+  shadow?: boolean;
+  border?: boolean;
+  radius?: string;
+  bg?: string;
+}
+
+const {
+  href,
+  padding = 'md',
+  shadow = false,
+  border = true,
+  radius = 'var(--radius-md)',
+  bg = 'var(--color-background)',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  class:list={['card', `pad-${padding}`, { 'card-shadow': shadow, 'card-border': border, 'card-link': !!href }]}
+  style={`border-radius: ${radius}; background-color: ${bg}`}
+  href={href}
+>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-border { border: 1px solid var(--color-border); }
+  .card-shadow { box-shadow: var(--shadow-sm); }
+
+  .card-link {
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+  .card-link:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .pad-none { padding: 0; }
+  .pad-sm   { padding: 1rem; }
+  .pad-md   { padding: 1.5rem; }
+  .pad-lg   { padding: 2.5rem; }
+</style>

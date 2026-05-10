@@ -1,0 +1,307 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+  number?: string;
+}
+
+interface Props {
+  // Variante
+  variant?: 'image-text' | 'nav-content' | 'text-text';
+
+  // Linke Seite
+  leftImage?: string;
+  leftImageAlt?: string;
+  leftBg?: string;        // Hintergrundfarbe linke Seite (für nav-content und text-text)
+  leftEyebrow?: string;
+  leftHeadline?: string;
+  leftText?: string;
+  leftNavItems?: NavItem[];
+
+  // Rechte Seite
+  rightBg?: string;       // Hintergrundfarbe rechte Seite
+  rightEyebrow?: string;
+  rightHeadline?: string;
+  rightText?: string;
+  rightCtaLabel?: string;
+  rightCtaHref?: string;
+  rightContent?: string;  // Freitext / HTML-String für nav-content Variante
+
+  // Layout
+  reverse?: boolean;      // Seiten tauschen
+  minHeight?: string;     // default: 100svh
+  sticky?: boolean;       // Linke Seite sticky beim Scrollen (für nav-content)
+}
+
+const {
+  variant = 'image-text',
+  leftImage,
+  leftImageAlt = '',
+  leftBg = 'var(--color-primary)',
+  leftEyebrow,
+  leftHeadline,
+  leftText,
+  leftNavItems = [],
+  rightBg = 'var(--color-background)',
+  rightEyebrow,
+  rightHeadline,
+  rightText,
+  rightCtaLabel,
+  rightCtaHref,
+  rightContent,
+  reverse = false,
+  minHeight = '100svh',
+  sticky = false,
+} = Astro.props;
+---
+
+<section
+  class:list={['split-screen', `variant-${variant}`, { reverse, sticky }]}
+  style={`--split-min-height: ${minHeight}`}
+>
+  <!-- Linke Seite -->
+  <div class="split-left" style={`background-color: ${leftBg}`}>
+    {variant === 'image-text' && leftImage && (
+      <img src={leftImage} alt={leftImageAlt} class="split-image" />
+    )}
+
+    {variant === 'nav-content' && (
+      <nav class="split-nav" aria-label="Split-Navigation">
+        {leftNavItems.map((item) => (
+          <a href={item.href} class="split-nav-link">
+            {item.number && <span class="nav-number">{item.number}</span>}
+            <span class="nav-label">{item.label}</span>
+          </a>
+        ))}
+      </nav>
+    )}
+
+    {variant === 'text-text' && (
+      <div class="split-text-panel">
+        {leftEyebrow && <p class="eyebrow">{leftEyebrow}</p>}
+        {leftHeadline && <h2>{leftHeadline}</h2>}
+        {leftText && <p class="body-text">{leftText}</p>}
+      </div>
+    )}
+  </div>
+
+  <!-- Rechte Seite -->
+  <div class="split-right" style={`background-color: ${rightBg}`}>
+    {variant === 'image-text' && (
+      <div class="split-content">
+        {rightEyebrow && <p class="eyebrow">{rightEyebrow}</p>}
+        {rightHeadline && <h2>{rightHeadline}</h2>}
+        {rightText && <p class="body-text">{rightText}</p>}
+        {rightCtaLabel && rightCtaHref && (
+          <a href={rightCtaHref} class="cta">{rightCtaLabel}</a>
+        )}
+      </div>
+    )}
+
+    {variant === 'nav-content' && (
+      <div class="split-content">
+        {rightEyebrow && <p class="eyebrow">{rightEyebrow}</p>}
+        {rightHeadline && <h2>{rightHeadline}</h2>}
+        {rightContent
+          ? <div class="body-text" set:html={rightContent} />
+          : rightText && <p class="body-text">{rightText}</p>
+        }
+        {rightCtaLabel && rightCtaHref && (
+          <a href={rightCtaHref} class="cta">{rightCtaLabel}</a>
+        )}
+      </div>
+    )}
+
+    {variant === 'text-text' && (
+      <div class="split-text-panel">
+        {rightEyebrow && <p class="eyebrow">{rightEyebrow}</p>}
+        {rightHeadline && <h2>{rightHeadline}</h2>}
+        {rightText && <p class="body-text">{rightText}</p>}
+        {rightCtaLabel && rightCtaHref && (
+          <a href={rightCtaHref} class="cta">{rightCtaLabel}</a>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .split-screen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: var(--split-min-height);
+  }
+
+  /* Seiten tauschen */
+  .split-screen.reverse .split-left  { order: 2; }
+  .split-screen.reverse .split-right { order: 1; }
+
+  /* ── image-text ── */
+  .split-left {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .split-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Linke Seite sticky für nav-content */
+  .split-screen.sticky .split-left {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    align-self: start;
+  }
+
+  /* ── Inhalts-Panel rechts ── */
+  .split-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .split-content {
+    padding: 4rem 3rem;
+    max-width: 560px;
+  }
+
+  /* ── nav-content: linke Nav ── */
+  .split-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 4rem 3rem;
+    gap: 0.25rem;
+  }
+
+  .split-nav-link {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color var(--transition-fast);
+  }
+
+  .split-nav-link:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .split-nav-link:hover {
+    color: #fff;
+  }
+
+  .nav-number {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-accent);
+    min-width: 2rem;
+  }
+
+  .nav-label {
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  /* ── text-text ── */
+  .split-text-panel {
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    gap: 1rem;
+  }
+
+  /* ── Gemeinsame Text-Styles ── */
+  .eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3vw, var(--text-4xl));
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  /* Text-Farbe auf dunklem Hintergrund */
+  .split-left .eyebrow,
+  .split-left h2,
+  .split-left .body-text,
+  .split-nav ~ * .eyebrow {
+    color: #fff;
+  }
+
+  .split-right h2 {
+    color: var(--color-primary);
+  }
+
+  .body-text {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  .split-left .body-text {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cta {
+    display: inline-block;
+    margin-top: 0.5rem;
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+    align-self: flex-start;
+  }
+
+  .cta:hover {
+    background-color: var(--color-primary-light);
+    color: #fff;
+  }
+
+  /* ── Mobile: untereinander stapeln ── */
+  @media (max-width: 768px) {
+    .split-screen {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .split-screen.reverse .split-left,
+    .split-screen.reverse .split-right {
+      order: unset;
+    }
+
+    .split-screen.sticky .split-left {
+      position: relative;
+      height: auto;
+    }
+
+    .split-left {
+      min-height: 50svh;
+    }
+
+    .split-content,
+    .split-text-panel,
+    .split-nav {
+      padding: 3rem 1.5rem;
+      max-width: 100%;
+    }
+  }
+</style>

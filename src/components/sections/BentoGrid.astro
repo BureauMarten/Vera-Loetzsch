@@ -1,0 +1,35 @@
+---
+interface Props {
+  columns?: 2 | 3 | 4;
+  gap?: string;
+}
+
+const { columns = 3, gap = '1rem' } = Astro.props;
+---
+
+<section class="bento-grid" style={`--bento-columns: ${columns}; --bento-gap: ${gap}`}>
+  <slot />
+</section>
+
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--bento-columns), 1fr);
+    gap: var(--bento-gap);
+    padding: var(--spacing-section) 1.5rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

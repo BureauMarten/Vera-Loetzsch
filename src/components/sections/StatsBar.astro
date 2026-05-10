@@ -1,0 +1,78 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  background?: 'light' | 'dark' | 'primary';
+}
+
+const { stats, background = 'light' } = Astro.props;
+---
+
+<section class={`stats-bar bg-${background}`}>
+  <div class="stats-inner">
+    {stats.map((stat) => (
+      <div class="stat">
+        <span class="value">{stat.value}</span>
+        <span class="label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stats-bar {
+    padding: 3rem 1.5rem;
+  }
+
+  .bg-light {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .bg-dark {
+    background-color: var(--color-primary-dark);
+    color: #fff;
+  }
+
+  .bg-primary {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .stats-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 120px;
+  }
+
+  .value {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .bg-light .value {
+    color: var(--color-primary);
+  }
+
+  .label {
+    font-size: var(--text-sm);
+    opacity: 0.75;
+    text-align: center;
+  }
+</style>

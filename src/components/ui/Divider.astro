@@ -1,0 +1,54 @@
+---
+interface Props {
+  label?: string;
+  align?: 'left' | 'center' | 'right';
+  spacing?: 'sm' | 'md' | 'lg';
+}
+
+const { label, align = 'center', spacing = 'md' } = Astro.props;
+---
+
+<div class:list={['divider', `align-${align}`, `spacing-${spacing}`]} role="separator" aria-label={label}>
+  {label && <span class="divider-label">{label}</span>}
+</div>
+
+<style>
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-text-muted);
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .align-left::before  { flex: 0 0 2rem; }
+  .align-right::after  { flex: 0 0 2rem; }
+
+  /* Ohne Label: nur Linie */
+  .divider:not(:has(.divider-label))::before { display: none; }
+  .divider:not(:has(.divider-label)) {
+    display: block;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .spacing-sm { margin: 1rem 0; }
+  .spacing-md { margin: 2rem 0; }
+  .spacing-lg { margin: 3rem 0; }
+
+  .divider-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>

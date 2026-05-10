@@ -1,0 +1,94 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  text: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  align?: 'left' | 'center' | 'right';
+  maxWidth?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  text,
+  ctaLabel,
+  ctaHref,
+  align = 'left',
+  maxWidth = true,
+} = Astro.props;
+---
+
+<div class={`section-intro align-${align}`}>
+  <div class:list={['section-intro-inner', { 'max-width': maxWidth }]}>
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2>{title}</h2>
+    <p class="text">{text}</p>
+    {ctaLabel && ctaHref && (
+      <a href={ctaHref} class="cta">{ctaLabel}</a>
+    )}
+  </div>
+</div>
+
+<style>
+  .section-intro {
+    padding: var(--spacing-section) 1.5rem;
+  }
+
+  .section-intro-inner {
+    margin: 0 auto;
+  }
+
+  .section-intro-inner.max-width {
+    max-width: var(--max-width-text);
+  }
+
+  .align-center .section-intro-inner {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .align-right .section-intro-inner {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  .eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 0.75rem;
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+  }
+
+  .text {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    margin: 0 0 1.5rem;
+    line-height: 1.7;
+  }
+
+  .cta {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .cta:hover {
+    background-color: var(--color-primary-light);
+    color: #fff;
+  }
+</style>

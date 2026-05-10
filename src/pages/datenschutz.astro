@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Datenschutzerklärung"
+  description="Datenschutzerklärung gemäß DSGVO."
+  noindex={true}
+>
+  <PageHeader
+    title="Datenschutzerklärung"
+    breadcrumb={[{ label: 'Datenschutz', href: '/datenschutz' }]}
+  />
+
+  <div class="legal-content">
+    <section>
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        Verantwortlicher im Sinne der DSGVO:<br /><br />
+        [FIRMENNAME]<br />
+        [STRASSE]<br />
+        [PLZ ORT]<br />
+        E-Mail: <a href="mailto:[EMAIL]">[EMAIL]</a><br />
+        Telefon: [TELEFON]
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Hosting</h2>
+      <p>
+        Diese Website wird gehostet bei: <strong>[HOSTING-ANBIETER — bitte eintragen]</strong>
+      </p>
+      <p>
+        Der Hostinganbieter verarbeitet personenbezogene Daten (z. B. IP-Adressen, Metadaten) im Rahmen des Betriebs dieser Website. Die Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren und effizienten Betrieb der Website).
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Cookies</h2>
+      <p>
+        Diese Website verwendet ausschließlich technisch notwendige Cookies. Es werden keine Tracking- oder Marketing-Cookies eingesetzt. Eine Einwilligung ist nach Art. 5 Abs. 3 ePrivacy-Richtlinie nicht erforderlich.
+      </p>
+      <p>
+        Der Cookie-Hinweis wird über <code>sessionStorage</code> verwaltet — ein browserseitiger Speicher, der keine Daten an unsere Server überträgt und beim Schließen des Browser-Tabs automatisch gelöscht wird. Es werden dabei keine Cookies gesetzt.
+      </p>
+      <p>
+        Technisch notwendige Cookies können vom Hosting-Anbieter gesetzt werden (z. B. für Load-Balancing oder Session-Sicherheit). Details hierzu findest du in den Datenschutzhinweisen des Hosting-Anbieters: <strong>[HOSTING-ANBIETER]</strong>.
+      </p>
+    </section>
+
+    <section>
+      <h2>4. Kontaktformular</h2>
+      <p>
+        Wenn Sie uns über das Kontaktformular eine Anfrage zukommen lassen, werden Ihre Angaben (Name, E-Mail-Adresse, Nachricht sowie optionale Angaben) zum Zweck der Bearbeitung der Anfrage bei uns gespeichert.
+      </p>
+      <p>
+        Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen). Die Daten werden nach abschließender Bearbeitung gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.
+      </p>
+    </section>
+
+    <section>
+      <h2>5. Ihre Rechte als betroffene Person</h2>
+      <p>Sie haben gemäß DSGVO folgende Rechte:</p>
+      <ul>
+        <li><strong>Auskunftsrecht</strong> (Art. 15 DSGVO): Sie können Auskunft über Ihre bei uns gespeicherten Daten verlangen.</li>
+        <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO): Sie können die Berichtigung unrichtiger Daten verlangen.</li>
+        <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO): Sie können die Löschung Ihrer Daten verlangen, soweit keine Aufbewahrungspflichten entgegenstehen.</li>
+        <li><strong>Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+        <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+        <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO): Sie können der Verarbeitung auf Basis berechtigter Interessen widersprechen.</li>
+        <li><strong>Beschwerderecht</strong>: Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.</li>
+      </ul>
+      <p>
+        Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:[EMAIL]">[EMAIL]</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>6. SSL/TLS-Verschlüsselung</h2>
+      <p>
+        Diese Website nutzt aus Gründen der Sicherheit und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt.
+      </p>
+    </section>
+
+    <section>
+      <h2>7. Aktualität dieser Datenschutzerklärung</h2>
+      <p>
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand [DATUM]. Durch die Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-content {
+    max-width: var(--max-width-text);
+    margin: 0 auto;
+    padding: var(--spacing-section) 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  h2 {
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  p, ul {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  a {
+    color: var(--color-primary);
+  }
+</style>

@@ -1,0 +1,640 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AccordionItem from '../components/leistungen/AccordionItem.astro';
+import Alert from '../components/ui/Alert.astro';
+import Badge from '../components/ui/Badge.astro';
+import BenefitsList from '../components/karriere/BenefitsList.astro';
+import BentoGrid from '../components/sections/BentoGrid.astro';
+import BentoItem from '../components/sections/BentoItem.astro';
+import BiographyTable from '../components/ueberuns/BiographyTable.astro';
+import BlogGrid from '../components/blog/BlogGrid.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import CardSlider from '../components/sections/CardSlider.astro';
+import ContactForm from '../components/kontakt/ContactForm.astro';
+import ContactInfo from '../components/kontakt/ContactInfo.astro';
+import CookieConsent from '../components/legal/CookieConsent.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import Divider from '../components/ui/Divider.astro';
+import FAQSection from '../components/sections/FAQSection.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import Hero from '../components/sections/Hero.astro';
+import HeroSlider from '../components/sections/HeroSlider.astro';
+import ImageGallery from '../components/karriere/ImageGallery.astro';
+import JobCard from '../components/karriere/JobCard.astro';
+import LogoGrid from '../components/sections/LogoGrid.astro';
+import Map from '../components/kontakt/Map.astro';
+import NewsletterForm from '../components/kontakt/NewsletterForm.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+import Pagination from '../components/blog/Pagination.astro';
+import PersonCard from '../components/ueberuns/PersonCard.astro';
+import PricingTable from '../components/sections/PricingTable.astro';
+import ProjectGrid from '../components/projekte/ProjectGrid.astro';
+import SearchForm from '../components/kontakt/SearchForm.astro';
+import SectionIntro from '../components/sections/SectionIntro.astro';
+import ServiceGrid from '../components/leistungen/ServiceGrid.astro';
+import Sidebar from '../components/navigation/Sidebar.astro';
+import SplitScreen from '../components/sections/SplitScreen.astro';
+import StatsBar from '../components/sections/StatsBar.astro';
+import StepsNumbered from '../components/sections/StepsNumbered.astro';
+import TeamGallery from '../components/ueberuns/TeamGallery.astro';
+import Testimonial from '../components/sections/Testimonial.astro';
+import TextImage from '../components/sections/TextImage.astro';
+import Timeline from '../components/sections/Timeline.astro';
+import Toast from '../components/ui/Toast.astro';
+---
+
+<BaseLayout
+  title="Komponentenübersicht (Entwicklung)"
+  description="Demo-Seite aller verfügbaren Komponenten."
+  noindex={true}
+>
+  <PageHeader
+    title="Komponentenübersicht"
+    subtitle="Alle verfügbaren Komponenten auf einen Blick — nur für die Entwicklung."
+  />
+
+  <!-- ═══════ A ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">Alert</h2>
+    <div style="display:flex; flex-direction:column; gap:0.75rem; padding:1.5rem; max-width:640px; margin:0 auto;">
+      <Alert variant="info" title="Hinweis">Dies ist eine informative Meldung mit hilfreichen Informationen.</Alert>
+      <Alert variant="success" title="Erfolgreich">Die Aktion wurde erfolgreich durchgeführt.</Alert>
+      <Alert variant="warning" title="Achtung">Bitte überprüfe deine Eingaben vor dem Fortfahren.</Alert>
+      <Alert variant="error" title="Fehler">Ein Fehler ist aufgetreten. Bitte versuche es erneut.</Alert>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">AccordionItem</h2>
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 1.5rem;">
+      <AccordionItem number="01" title="Webdesign & Corporate Design" content="Wir gestalten Websites und digitale Markenauftritte, die Ihre Zielgruppe ansprechen und überzeugen. Von der Konzeption bis zur finalen Umsetzung." open={true} group="demo" />
+      <AccordionItem number="02" title="Frontend-Entwicklung" content="Saubere, performante und barrierefreie Umsetzung mit modernen Webtechnologien. Schnelle Ladezeiten und beste Core Web Vitals." group="demo" />
+      <AccordionItem number="03" title="SEO & Sichtbarkeit" content="Technische SEO-Optimierung, strukturierte Daten und Content-Strategie für mehr organische Reichweite." group="demo" />
+    </div>
+  </div>
+
+  <!-- ═══════ B ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">BlogCard + BlogGrid</h2>
+    <BlogGrid
+      eyebrow="Aktuelles"
+      title="Aus dem Blog"
+      columns={3}
+      posts={[
+        { title: 'Warum modernes Webdesign mehr ist als Ästhetik', teaser: 'Gutes Design löst Probleme. Wir erklären wie Struktur und Gestaltung zusammenwirken.', image: 'https://placehold.co/600x400?text=Blog+1', date: '2024-03-15', category: 'Design', href: '#', author: 'Max Mustermann', readingTime: '5 Min.' },
+        { title: 'Astro 4 vs. Next.js: Was passt zu deinem Projekt?', teaser: 'Ein ehrlicher Vergleich zweier moderner Frameworks für unterschiedliche Anforderungen.', image: 'https://placehold.co/600x400?text=Blog+2', date: '2024-02-28', category: 'Entwicklung', href: '#', readingTime: '8 Min.' },
+        { title: 'Core Web Vitals 2024: Was wirklich zählt', teaser: 'Google bewertet Websites nach Performance-Metriken. Was du wissen musst.', image: 'https://placehold.co/600x400?text=Blog+3', date: '2024-01-10', category: 'SEO', href: '#', author: 'Anna Weber', readingTime: '6 Min.' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Button</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; padding:1.5rem;">
+      <Button label="Primary" variant="primary" />
+      <Button label="Secondary" variant="secondary" />
+      <Button label="Outline" variant="outline" />
+      <Button label="Ghost" variant="ghost" />
+      <Button label="Klein" variant="primary" size="sm" />
+      <Button label="Groß" variant="primary" size="lg" />
+      <Button label="Als Link" variant="outline" href="#" />
+      <Button label="Deaktiviert" variant="primary" disabled={true} />
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Badge</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; padding:1.5rem;">
+      <Badge label="Standard" />
+      <Badge label="Primary" variant="primary" />
+      <Badge label="Accent" variant="accent" />
+      <Badge label="Erfolg" variant="success" dot={true} />
+      <Badge label="Warnung" variant="warning" dot={true} />
+      <Badge label="Fehler" variant="error" dot={true} />
+      <Badge label="Outline" variant="outline" />
+      <Badge label="Klein" variant="primary" size="sm" />
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">BenefitsList</h2>
+    <BenefitsList
+      title="Was wir bieten"
+      columns={[
+        { items: ['Flexible Arbeitszeiten', 'Remote-Option', '30 Tage Urlaub', 'Weiterbildungsbudget'] },
+        { items: ['Moderne Ausstattung', 'Team-Events', 'Flache Hierarchien', 'Faire Vergütung'] },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">BentoGrid + BentoItem</h2>
+    <BentoGrid columns={3} gap="1rem">
+      <BentoItem span={2} rowSpan={2} variant="image" image="https://placehold.co/800x600?text=Bild" imageAlt="Referenz" overlay={true} eyebrow="Ausgewähltes Projekt" headline="Firmenwebsite Müller GmbH" text="Modernes Webdesign mit Fokus auf Conversion und Performance." bg="var(--color-primary)" href="#" />
+      <BentoItem span={1} variant="stat" stat="120+" statLabel="Projekte" bg="var(--color-primary)" textColor="#fff" justify="center" align="center" />
+      <BentoItem span={1} variant="text" eyebrow="Seit" headline="2015" text="Jahren im Geschäft" bg="var(--color-secondary)" textColor="var(--color-primary)" justify="center" align="center" />
+      <BentoItem span="full" variant="image" image="https://placehold.co/1200x400?text=Full+Width" imageAlt="Team" overlay={true} headline="»Wir gestalten digitale Erlebnisse die begeistern.«" eyebrow="Unser Anspruch" minHeight="220px" justify="center" align="center" />
+      <BentoItem span={1} variant="text" eyebrow="Leistung 01" headline="Webdesign" text="Zeitgemäße Gestaltung für Ihre digitale Präsenz." bg="var(--color-surface)" />
+      <BentoItem span={1} variant="text" eyebrow="Leistung 02" headline="Entwicklung" text="Sauberer Code, schnelle Ladezeiten, beste Core Web Vitals." bg="var(--color-surface-dark)" />
+      <BentoItem span={1} variant="text" eyebrow="Leistung 03" headline="SEO" text="Technische und inhaltliche Optimierung für mehr Sichtbarkeit." bg="var(--color-surface)" />
+    </BentoGrid>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">BiographyTable</h2>
+    <div style="max-width: 640px; margin: 0 auto; padding: 0 1.5rem;">
+      <BiographyTable
+        entries={[
+          { year: '2024', description: 'Gründung des Studios in München' },
+          { year: '2022', description: 'Auszeichnung "Best Agency" beim German Design Award' },
+          { year: '2020', description: 'Expansion auf 8 Mitarbeiter' },
+          { year: '2015', description: 'Gründung als Einzelunternehmen' },
+        ]}
+      />
+    </div>
+  </div>
+
+  <!-- ═══════ C ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">Card</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; padding:1.5rem; max-width:var(--max-width); margin:0 auto;">
+      <Card padding="md" border={true}>
+        <p style="font-weight:600; color:var(--color-primary); margin-bottom:0.5rem">Standard Card</p>
+        <p style="color:var(--color-text-light); font-size:var(--text-sm)">Mit Border, Padding md, weißer Hintergrund.</p>
+      </Card>
+      <Card padding="md" shadow={true} border={false}>
+        <p style="font-weight:600; color:var(--color-primary); margin-bottom:0.5rem">Shadow Card</p>
+        <p style="color:var(--color-text-light); font-size:var(--text-sm)">Mit Schatten statt Border.</p>
+      </Card>
+      <Card padding="md" href="#" border={true}>
+        <p style="font-weight:600; color:var(--color-primary); margin-bottom:0.5rem">Link Card</p>
+        <p style="color:var(--color-text-light); font-size:var(--text-sm)">Klickbare Card mit Hover-Effekt.</p>
+      </Card>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">CardSlider</h2>
+    <CardSlider
+      cards={[
+        { image: 'https://placehold.co/600x400?text=Projekt+1', title: 'Firmenwebsite Müller GmbH', text: 'Moderne Unternehmenswebsite mit Fokus auf Conversion.', label: 'Webdesign', href: '#' },
+        { image: 'https://placehold.co/600x400?text=Projekt+2', title: 'Online-Shop Schmidt AG', text: 'Leistungsstarker Shop mit individuellem Design.', label: 'E-Commerce', href: '#' },
+        { image: 'https://placehold.co/600x400?text=Projekt+3', title: 'Landingpage Kampagne', text: 'Conversion-optimierte Seite für digitale Kampagnen.', label: 'Landingpage', href: '#' },
+        { image: 'https://placehold.co/600x400?text=Projekt+4', title: 'Karriereportal Meier KG', text: 'Modernes Jobportal mit Filterfunktion.', label: 'Webdesign', href: '#' },
+        { image: 'https://placehold.co/600x400?text=Projekt+5', title: 'Relaunch Bäckerei Huber', text: 'Frischer Auftritt mit Online-Bestellung.', label: 'Relaunch', href: '#' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">ContactForm + ContactInfo</h2>
+    <div class="contact-demo">
+      <ContactInfo company="[FIRMENNAME]" address="[STRASSE]\n[PLZ ORT]" email="[EMAIL]" phone="+49 89 123456789" mapLink="https://maps.google.com" />
+      <ContactForm />
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">CTASection</h2>
+    <CTASection headline="Bereit für Ihr nächstes Projekt?" text="Wir begleiten Sie von der Idee bis zum Launch." ctaLabel="Jetzt Kontakt aufnehmen" ctaHref="/kontakt" ctaSecondaryLabel="Referenzen ansehen" ctaSecondaryHref="/projekte" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">CTASection (light, left)</h2>
+    <CTASection headline="Kostenloses Erstgespräch vereinbaren" text="30 Minuten, unverbindlich, direkt mit dem Team." ctaLabel="Termin buchen" ctaHref="/kontakt" background="light" align="left" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">CookieConsent</h2>
+    <div style="padding:1.5rem; background:var(--color-surface); border-radius:var(--radius-md); margin:1rem 1.5rem;">
+      <p style="font-size:var(--text-sm); color:var(--color-text-light); margin:0 0 0.75rem;">
+        Banner erscheint wenn noch keine Entscheidung gespeichert ist. Reset:
+      </p>
+      <code style="font-size:var(--text-xs); background:var(--color-surface-dark); padding:0.25rem 0.5rem; border-radius:var(--radius-sm);">
+        localStorage.removeItem('cookie_consent')
+      </code>
+    </div>
+    <CookieConsent />
+  </div>
+
+  <!-- ═══════ D ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">Divider</h2>
+    <div style="padding:1.5rem; max-width:640px; margin:0 auto;">
+      <Divider spacing="md" />
+      <Divider label="Oder" spacing="md" />
+      <Divider label="Weiterlesen" align="left" spacing="md" />
+    </div>
+  </div>
+
+  <!-- ═══════ F ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">FAQSection</h2>
+    <FAQSection
+      eyebrow="FAQ"
+      title="Häufig gestellte Fragen"
+      items={[
+        { question: 'Wie lange dauert ein Webdesign-Projekt?', answer: 'Je nach Umfang zwischen 4 und 12 Wochen. Wir erstellen nach dem Briefing einen konkreten Zeitplan.' },
+        { question: 'Welche Technologien nutzt ihr?', answer: 'Wir arbeiten primär mit Astro, Tailwind CSS und modernem TypeScript. Für komplexere Anforderungen auch mit React oder Vue.' },
+        { question: 'Bietet ihr auch Hosting an?', answer: 'Ja, wir bieten Managed Hosting auf deutschen Servern mit SSL, täglichen Backups und technischem Support.' },
+        { question: 'Was kostet eine Website?', answer: 'Das hängt vom Umfang ab. Einfache Websites starten bei ca. 990 €, komplexere Projekte auf Anfrage.' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">FeatureGrid</h2>
+    <FeatureGrid
+      eyebrow="Warum wir"
+      title="Das macht uns aus"
+      features={[
+        { icon: '🎨', title: 'Individuelles Design', text: 'Kein Template. Jede Website wird von Grund auf für Ihr Unternehmen gestaltet.' },
+        { icon: '⚡', title: 'Top Performance', text: 'Schnelle Ladezeiten und beste Core Web Vitals sind für uns Standard, nicht Extras.' },
+        { icon: '🔍', title: 'SEO-optimiert', text: 'Technische und inhaltliche Optimierung für bessere Sichtbarkeit von Beginn an.' },
+        { icon: '📱', title: 'Mobile First', text: 'Alle unsere Websites sind von Grund auf für mobile Geräte optimiert.' },
+        { icon: '🔒', title: 'DSGVO-konform', text: 'Datenschutz ist kein Nachgedanke, sondern Teil unseres Entwicklungsprozesses.' },
+        { icon: '🛠', title: 'Langzeit-Support', text: 'Wir begleiten Sie auch nach dem Launch mit Updates und Weiterentwicklungen.' },
+      ]}
+    />
+  </div>
+
+  <!-- ═══════ H ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">Hero</h2>
+    <Hero
+      headline="Wir gestalten digitale Erlebnisse"
+      subline="Webdesign und Entwicklung für mittelständische Unternehmen im deutschsprachigen Raum."
+      ctaLabel="Projekte ansehen"
+      ctaHref="/projekte"
+      ctaSecondaryLabel="Kontakt aufnehmen"
+      ctaSecondaryHref="/kontakt"
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">HeroSlider</h2>
+    <HeroSlider
+      slides={[
+        { headline: 'Wir gestalten digitale Erlebnisse', subline: 'Webdesign und Entwicklung für mittelständische Unternehmen.', ctaLabel: 'Projekte ansehen', ctaHref: '/projekte', ctaSecondaryLabel: 'Kontakt aufnehmen', ctaSecondaryHref: '/kontakt' },
+        { headline: 'Design trifft Technologie', subline: 'Klare Strukturen, schnelle Ladezeiten, messbare Ergebnisse.', ctaLabel: 'Leistungen entdecken', ctaHref: '/leistungen' },
+        { headline: 'Ihr Partner für digitales Wachstum', subline: 'Über 120 Projekte — von der Konzeption bis zum Launch.', ctaLabel: 'Über uns', ctaHref: '/ueber-uns', ctaSecondaryLabel: 'Referenzen', ctaSecondaryHref: '/projekte' },
+      ]}
+    />
+  </div>
+
+  <!-- ═══════ I ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">ImageGallery</h2>
+    <div style="padding: 0 1.5rem; max-width: var(--max-width); margin: 0 auto;">
+      <ImageGallery
+        images={[
+          { src: 'https://placehold.co/400x400?text=Bild+1', alt: 'Büro 1' },
+          { src: 'https://placehold.co/400x400?text=Bild+2', alt: 'Büro 2' },
+          { src: 'https://placehold.co/400x400?text=Bild+3', alt: 'Team-Event' },
+          { src: 'https://placehold.co/400x400?text=Bild+4', alt: 'Workspace' },
+        ]}
+      />
+    </div>
+  </div>
+
+  <!-- ═══════ J ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">JobCard</h2>
+    <div style="max-width: 480px; margin: 0 auto; padding: 0 1.5rem;">
+      <JobCard image="https://placehold.co/600x340?text=Job+Bild" title="Senior Frontend-Entwickler (m/w/d)" description="Du liebst sauberen Code und modernes Webdesign? Dann werde Teil unseres Teams." ctaLabel="Jetzt bewerben" ctaHref="/kontakt" />
+    </div>
+  </div>
+
+  <!-- ═══════ L ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">LogoGrid</h2>
+    <LogoGrid
+      title="Diese Unternehmen vertrauen uns"
+      logos={[
+        { src: 'https://placehold.co/160x60?text=Logo+1', alt: 'Kunde 1' },
+        { src: 'https://placehold.co/160x60?text=Logo+2', alt: 'Kunde 2' },
+        { src: 'https://placehold.co/160x60?text=Logo+3', alt: 'Kunde 3' },
+        { src: 'https://placehold.co/160x60?text=Logo+4', alt: 'Kunde 4' },
+        { src: 'https://placehold.co/160x60?text=Logo+5', alt: 'Kunde 5' },
+      ]}
+    />
+  </div>
+
+  <!-- ═══════ M ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">Map</h2>
+    <div style="padding: 0 1.5rem; max-width: var(--max-width); margin: 0 auto;">
+      <Map lat={48.1351} lng={11.5820} zoom={14} height="420px" ariaLabel="Standort München" tile="carto-positron" markers={[{ lat: 48.1351, lng: 11.5820, popup: '<strong>[FIRMENNAME]</strong><br>[STRASSE]<br>[PLZ] München' }]} />
+    </div>
+  </div>
+
+  <!-- ═══════ N ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">NewsletterForm</h2>
+    <NewsletterForm title="Newsletter abonnieren" text="Keine Werbung. Nur relevante Inhalte zu Webdesign und Technologie." />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">NewsletterForm (primary)</h2>
+    <NewsletterForm background="primary" buttonLabel="Jetzt anmelden" placeholder="deine@email.de" />
+  </div>
+
+  <!-- ═══════ P ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">PageHeader</h2>
+    <PageHeader
+      title="Beispiel-Seitentitel"
+      subtitle="Optionaler Untertitel für die Seite"
+      breadcrumb={[
+        { label: 'Leistungen', href: '/leistungen' },
+        { label: 'Webdesign', href: '/leistungen/webdesign' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Pagination</h2>
+    <Pagination currentPage={3} totalPages={8} baseUrl="/blog" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">PersonCard</h2>
+    <div style="max-width: 480px; margin: 0 auto; padding: 0 1.5rem;">
+      <PersonCard
+        name="Max Mustermann"
+        role="Geschäftsführer & Designer"
+        image="https://placehold.co/200x200?text=Foto"
+        bio={[
+          { year: '2024', description: 'Gründung des Studios' },
+          { year: '2020', description: 'Senior Designer bei Agentur XY' },
+          { year: '2016', description: 'Studium Kommunikationsdesign, Abschluss' },
+        ]}
+      />
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">PricingTable</h2>
+    <PricingTable
+      tiers={[
+        { name: 'Starter', price: '990', period: 'einmalig', description: 'Für kleine Unternehmen und Selbstständige.', features: ['5 Unterseiten', 'Responsive Design', 'Kontaktformular', 'SSL & Hosting (1 Jahr)', 'SEO-Grundoptimierung'], ctaLabel: 'Jetzt starten', ctaHref: '/kontakt' },
+        { name: 'Professional', price: '2.490', period: 'einmalig', description: 'Für wachsende Unternehmen mit höheren Ansprüchen.', features: ['Bis 15 Unterseiten', 'Individuelles Design', 'CMS-Integration', 'SSL & Hosting (1 Jahr)', 'SEO-Optimierung', 'Google Analytics', '3 Monate Support'], ctaLabel: 'Projekt starten', ctaHref: '/kontakt', highlighted: true, badge: 'Beliebt' },
+        { name: 'Enterprise', price: 'Auf Anfrage', description: 'Individuelle Lösung für komplexe Anforderungen.', features: ['Unbegrenzte Seiten', 'Maßgeschneidertes Design', 'Komplexe Funktionen', 'Dediziertes Hosting', 'Vollständige SEO', 'Priority Support', 'SLA-Vereinbarung'], ctaLabel: 'Anfrage stellen', ctaHref: '/kontakt' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">ProjectGrid</h2>
+    <ProjectGrid
+      projects={[
+        { image: 'https://placehold.co/600x400?text=Projekt+1', title: 'Firmenwebsite Müller GmbH', tags: ['Webdesign', 'Astro'], href: '#', description: 'Moderne Unternehmenswebsite mit Fokus auf Conversion.' },
+        { image: 'https://placehold.co/600x400?text=Projekt+2', title: 'Online-Shop Schmidt AG', tags: ['E-Commerce', 'Webdesign'], href: '#', description: 'Leistungsstarker Online-Shop mit individuellem Design.' },
+        { image: 'https://placehold.co/600x400?text=Projekt+3', title: 'Landingpage Kampagne', tags: ['Astro', 'Landingpage'], href: '#' },
+        { image: 'https://placehold.co/600x400?text=Projekt+4', title: 'Karriereportal Meier KG', tags: ['Webdesign', 'E-Commerce'], href: '#' },
+      ]}
+    />
+  </div>
+
+  <!-- ═══════ S ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">SearchForm</h2>
+    <div style="padding:1.5rem; max-width:480px; margin:0 auto; display:flex; flex-direction:column; gap:1rem;">
+      <SearchForm size="sm" placeholder="Suchen …" />
+      <SearchForm size="md" placeholder="Artikel, Themen, Seiten …" />
+      <SearchForm size="lg" placeholder="Was suchen Sie?" buttonLabel="Los" />
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">SectionIntro (links)</h2>
+    <SectionIntro eyebrow="Über uns" title="Wer steckt hinter diesem Projekt?" text="Wir sind ein kleines, unabhängiges Studio mit Fokus auf klares Design und sauberen Code. Seit 2015 arbeiten wir mit Unternehmen aus dem Mittelstand zusammen." ctaLabel="Mehr erfahren" ctaHref="/ueber-uns" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">SectionIntro (zentriert)</h2>
+    <SectionIntro eyebrow="Leistungen" title="Was wir für Sie tun können" text="Von der Konzeption über Design bis zur Umsetzung — wir begleiten Ihr Projekt von Anfang an." align="center" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">ServiceGrid</h2>
+    <ServiceGrid
+      services={[
+        { title: 'Webdesign', text: 'Zeitgemäße und zielgruppengerechte Gestaltung Ihrer digitalen Präsenz.', icon: '🎨' },
+        { title: 'Entwicklung', text: 'Performante Umsetzung mit modernen Frameworks und sauberem Code.', icon: '💻' },
+        { title: 'SEO', text: 'Technische und inhaltliche Optimierung für bessere Sichtbarkeit.', icon: '🔍' },
+        { title: 'Hosting', text: 'Managed Hosting auf deutschen Servern mit SSL und automatischen Backups.', icon: '☁️' },
+        { title: 'Wartung', text: 'Regelmäßige Updates, Sicherheitsprüfungen und technischer Support.', icon: '🛠' },
+        { title: 'Beratung', text: 'Strategische Beratung für Ihre digitale Transformation.', icon: '💡' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Sidebar</h2>
+    <div style="padding:2rem 1.5rem; max-width:var(--max-width); margin:0 auto;">
+      <Sidebar
+        title="Navigation"
+        items={[
+          { label: 'Leistungen', href: '/leistungen', children: [{ label: 'Webdesign', href: '/leistungen/webdesign' }, { label: 'Entwicklung', href: '/leistungen/entwicklung' }] },
+          { label: 'Projekte', href: '/projekte' },
+          { label: 'Über uns', href: '/ueber-uns' },
+          { label: 'Kontakt', href: '/kontakt' },
+        ]}
+      >
+        <div style="background:var(--color-surface); border-radius:var(--radius-md); padding:2rem;">
+          <p style="color:var(--color-text-light); margin:0;">Hauptinhalt der Seite — die Sidebar sitzt links daneben und bleibt beim Scrollen sticky. Auf Mobile klappt die Navigation als Akkordeon auf.</p>
+        </div>
+      </Sidebar>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">SplitScreen: image-text</h2>
+    <SplitScreen variant="image-text" leftImage="https://placehold.co/800x900?text=Bild" leftImageAlt="Beispielbild" rightEyebrow="Über uns" rightHeadline="Wir gestalten digitale Erlebnisse" rightText="Seit 2015 arbeiten wir mit Unternehmen aus dem Mittelstand zusammen. Unser Fokus: klares Design, sauberer Code und messbare Ergebnisse." rightCtaLabel="Mehr erfahren" rightCtaHref="/ueber-uns" minHeight="70svh" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">SplitScreen: image-text (reverse)</h2>
+    <SplitScreen variant="image-text" leftImage="https://placehold.co/800x900?text=Bild" leftImageAlt="Beispielbild" rightEyebrow="Leistungen" rightHeadline="Design trifft Technologie" rightText="Von der Konzeption über das Design bis zur technischen Umsetzung — alles aus einer Hand." rightCtaLabel="Leistungen ansehen" rightCtaHref="/leistungen" minHeight="70svh" reverse={true} />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">SplitScreen: nav-content</h2>
+    <SplitScreen variant="nav-content" leftBg="var(--color-primary)" leftNavItems={[{ number: '01', label: 'Webdesign', href: '#' }, { number: '02', label: 'Entwicklung', href: '#' }, { number: '03', label: 'SEO', href: '#' }, { number: '04', label: 'Beratung', href: '#' }]} rightEyebrow="Webdesign" rightHeadline="Zeitgemäße Gestaltung" rightText="Wir entwickeln visuelle Identitäten und Websites, die Ihre Zielgruppe ansprechen und überzeugen." rightCtaLabel="Details" rightCtaHref="#" minHeight="70svh" sticky={true} />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">SplitScreen: text-text</h2>
+    <SplitScreen variant="text-text" leftBg="var(--color-primary)" leftEyebrow="Unser Ansatz" leftHeadline="»Weniger, aber besser.«" leftText="Der Mensch braucht wenig, wenn er weiß, was er braucht." rightBg="var(--color-surface)" rightEyebrow="Was das bedeutet" rightHeadline="Fokus auf das Wesentliche" rightText="Wir verzichten auf alles, was nicht zum Ziel beiträgt. Jede Entscheidung im Design hat einen Grund — und dieser Grund ist immer der Nutzer." rightCtaLabel="Unser Prozess" rightCtaHref="#" minHeight="60svh" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">StatsBar (light)</h2>
+    <StatsBar stats={[{ value: '120+', label: 'Projekte' }, { value: '8 Jahre', label: 'Erfahrung' }, { value: '98%', label: 'Zufriedene Kunden' }, { value: '12', label: 'Auszeichnungen' }]} />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">StatsBar (primary)</h2>
+    <StatsBar stats={[{ value: '120+', label: 'Projekte' }, { value: '8 Jahre', label: 'Erfahrung' }, { value: '98%', label: 'Zufriedene Kunden' }]} background="primary" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">StepsNumbered</h2>
+    <StepsNumbered
+      steps={[
+        { number: '01', title: 'Briefing', text: 'Wir lernen Ihr Unternehmen und Ihre Ziele kennen.' },
+        { number: '02', title: 'Konzept', text: 'Wir entwickeln eine maßgeschneiderte Lösung.' },
+        { number: '03', title: 'Umsetzung', text: 'Saubere Umsetzung nach modernen Standards.' },
+        { number: '04', title: 'Launch', text: 'Pünktliche Übergabe und Begleitung beim Go-live.' },
+      ]}
+    />
+  </div>
+
+  <!-- ═══════ T ═══════ -->
+
+  <div class="demo-section">
+    <h2 class="category-title">TeamGallery</h2>
+    <div style="padding: 0 1.5rem; max-width: var(--max-width); margin: 0 auto;">
+      <TeamGallery
+        images={[
+          { src: 'https://placehold.co/400x400?text=Team+1', alt: 'Teammitglied 1' },
+          { src: 'https://placehold.co/400x400?text=Team+2', alt: 'Teammitglied 2' },
+          { src: 'https://placehold.co/400x400?text=Team+3', alt: 'Teammitglied 3' },
+          { src: 'https://placehold.co/400x400?text=Team+4', alt: 'Teammitglied 4' },
+          { src: 'https://placehold.co/400x400?text=Team+5', alt: 'Teammitglied 5' },
+          { src: 'https://placehold.co/400x400?text=Team+6', alt: 'Teammitglied 6' },
+        ]}
+      />
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">TextImage</h2>
+    <TextImage image="https://placehold.co/800x600?text=Bild" imageAlt="Beispiel" eyebrow="Über uns" title="Wir stehen für Qualität und Verlässlichkeit" text="Seit 2015 begleiten wir Unternehmen bei ihrer digitalen Transformation. Unser Team vereint Design-Expertise mit technischem Know-how." ctaLabel="Mehr erfahren" ctaHref="/ueber-uns" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">TextImage (reverse)</h2>
+    <TextImage image="https://placehold.co/800x600?text=Bild" imageAlt="Beispiel" eyebrow="Leistungen" title="Von der Idee zur fertigen Website" text="Wir begleiten Sie durch den gesamten Prozess — von der ersten Konzeption bis zum erfolgreichen Launch." ctaLabel="Leistungen entdecken" ctaHref="/leistungen" reverse={true} background="light" />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Testimonial</h2>
+    <Testimonial
+      items={[
+        { quote: 'Die Zusammenarbeit war von Anfang an professionell und unkompliziert. Das Ergebnis hat unsere Erwartungen übertroffen.', name: 'Maria Müller', role: 'Geschäftsführerin', company: 'Müller GmbH', rating: 5 },
+        { quote: 'Schnelle Umsetzung, sauberer Code und ein Design das wirklich zu uns passt. Absolute Empfehlung!', name: 'Thomas Schmidt', role: 'Marketing-Leiter', company: 'Schmidt AG', rating: 5 },
+        { quote: 'Endlich eine Agentur die zuhört und versteht was wir brauchen. Sehr gerne wieder.', name: 'Anna Weber', role: 'Inhaberin', company: 'Weber & Co.', rating: 4 },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Testimonial (primary)</h2>
+    <Testimonial
+      background="primary"
+      columns={2}
+      items={[
+        { quote: 'Herausragende Qualität und ein Team das mitdenkt. Unsere neue Website hat die Conversion-Rate verdoppelt.', name: 'Klaus Bauer', role: 'CEO', company: 'Bauer Industries', rating: 5 },
+        { quote: 'Von der Konzeption bis zum Launch war alles reibungslos. Wir sind begeistert.', name: 'Sandra Klein', role: 'Projektleiterin', company: 'Klein Consulting', rating: 5 },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Timeline (vertical)</h2>
+    <Timeline
+      entries={[
+        { year: '2024', title: 'Expansion ins DACH-Raum', text: 'Wir erweitern unser Angebot auf den gesamten deutschsprachigen Markt.' },
+        { year: '2022', title: 'German Design Award', text: 'Auszeichnung für herausragendes Webdesign im Mittelstand.' },
+        { year: '2020', title: 'Team-Wachstum', text: 'Von 2 auf 8 Mitarbeiter — neue Kompetenzen in Entwicklung und SEO.' },
+        { year: '2015', title: 'Gründung', text: 'Start als Freelance-Studio mit dem Fokus auf klares, funktionales Design.' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Timeline (alternating)</h2>
+    <Timeline
+      layout="alternating"
+      entries={[
+        { year: '2024', title: 'Expansion', text: 'Neues Büro in München eröffnet.' },
+        { year: '2022', title: 'Award', text: 'German Design Award gewonnen.' },
+        { year: '2020', title: 'Wachstum', text: '8 Mitarbeiter, neue Kompetenzen.' },
+        { year: '2015', title: 'Gründung', text: 'Der Anfang von allem.' },
+      ]}
+    />
+  </div>
+
+  <div class="demo-section">
+    <h2 class="category-title">Toast</h2>
+    <Toast position="bottom-right" />
+    <div style="display:flex; flex-wrap:wrap; gap:0.75rem; padding:1.5rem;">
+      <button class="demo-btn" onclick="document.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Erfolgreich gespeichert!', type: 'success' } }))">Success</button>
+      <button class="demo-btn" onclick="document.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Ein Fehler ist aufgetreten.', type: 'error' } }))">Error</button>
+      <button class="demo-btn" onclick="document.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Bitte überprüfe deine Eingaben.', type: 'warning' } }))">Warning</button>
+      <button class="demo-btn" onclick="document.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Neue Nachricht eingegangen.', type: 'info' } }))">Info</button>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .demo-section {
+    padding: 2rem 0;
+    border-bottom: 2px dashed var(--color-border);
+  }
+
+  .category-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    background-color: var(--color-surface-dark);
+    padding: 0.5rem 1.5rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .contact-demo {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact-demo { grid-template-columns: 1fr; }
+  }
+
+  .demo-btn {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .demo-btn:hover { background-color: var(--color-primary-light); }
+</style>

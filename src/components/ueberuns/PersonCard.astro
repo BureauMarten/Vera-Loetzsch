@@ -1,0 +1,205 @@
+---
+interface BioEntry {
+  year: string;
+  description: string;
+}
+
+interface Props {
+  name: string;
+  role: string;
+  image: string;
+  bio?: BioEntry[];
+  expandable?: boolean;
+}
+
+const { name, role, image, bio, expandable = true } = Astro.props;
+---
+
+<div class="person-card">
+  <div class="card-top">
+    <img src={image} alt={name} class="portrait" loading="lazy" />
+    <div class="info">
+      <h3>{name}</h3>
+      <p class="role">{role}</p>
+    </div>
+  </div>
+
+  {bio && bio.length > 0 && (
+    expandable ? (
+      <div class="bio-expandable" data-person-bio>
+        <button class="bio-toggle" aria-expanded="false">
+          <span>Biografie</span>
+          <svg class="toggle-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="8" y1="2" x2="8" y2="14" />
+            <line x1="2" y1="8" x2="14" y2="8" />
+          </svg>
+        </button>
+        <div class="bio-body">
+          <div class="bio-inner">
+            <table class="bio-table">
+              <tbody>
+                {bio.map((entry) => (
+                  <tr>
+                    <td class="year">{entry.year}</td>
+                    <td>{entry.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <table class="bio-table static">
+        <tbody>
+          {bio.map((entry) => (
+            <tr>
+              <td class="year">{entry.year}</td>
+              <td>{entry.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  )}
+</div>
+
+<style>
+  .person-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-background);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .portrait {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    margin: 0 0 0.25rem;
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+  }
+
+  .role {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  /* Toggle-Button */
+  .bio-expandable {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .bio-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-light);
+    text-align: left;
+  }
+
+  .toggle-icon {
+    flex-shrink: 0;
+    transition: transform var(--transition-normal);
+  }
+
+  .bio-expandable.is-open .toggle-icon {
+    transform: rotate(45deg);
+  }
+
+
+  /* Grid-Transition */
+  .bio-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-normal);
+  }
+
+  .bio-expandable.is-open .bio-body {
+    grid-template-rows: 1fr;
+  }
+
+  .bio-inner {
+    overflow: hidden;
+  }
+
+  /* Tabelle */
+  .bio-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .bio-expandable .bio-table {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .bio-table.static {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .bio-table tr {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bio-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .bio-table td {
+    padding: 0.75rem 1.5rem;
+    vertical-align: top;
+    color: var(--color-text);
+  }
+
+  .year {
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+    width: 5rem;
+  }
+</style>
+
+<script>
+  function initPersonCards() {
+    document.querySelectorAll<HTMLElement>('[data-person-bio]').forEach((card) => {
+      if (card.dataset.init) return;
+      card.dataset.init = '1';
+
+      const btn = card.querySelector<HTMLButtonElement>('.bio-toggle')!;
+
+      btn.addEventListener('click', () => {
+        const isOpen = card.classList.contains('is-open');
+        card.classList.toggle('is-open', !isOpen);
+        btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPersonCards);
+  } else {
+    initPersonCards();
+  }
+</script>

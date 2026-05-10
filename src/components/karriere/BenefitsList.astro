@@ -1,0 +1,85 @@
+---
+interface Column {
+  items: string[];
+}
+
+interface Props {
+  columns: Column[];
+  title?: string;
+}
+
+const { columns, title } = Astro.props;
+---
+
+<section class="benefits">
+  <div class="benefits-inner">
+    {title && <h2>{title}</h2>}
+    <div class="columns" style={`--col-count: ${columns.length}`}>
+      {columns.map((col) => (
+        <ul class="benefits-list">
+          {col.items.map((item) => (
+            <li>
+              <span class="check" aria-hidden="true">✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits {
+    padding: var(--spacing-section) 1.5rem;
+    background-color: var(--color-surface);
+  }
+
+  .benefits-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin: 0 0 2rem;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(var(--col-count, 2), 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .columns {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .check {
+    color: var(--color-accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+</style>

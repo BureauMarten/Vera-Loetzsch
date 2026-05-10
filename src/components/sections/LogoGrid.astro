@@ -1,0 +1,75 @@
+---
+interface Logo {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  logos: Logo[];
+  title?: string;
+  grayscale?: boolean;
+}
+
+const { logos, title, grayscale = true } = Astro.props;
+---
+
+<section class="logo-grid">
+  <div class="logo-grid-inner">
+    {title && <p class="grid-title">{title}</p>}
+    <div class="logos">
+      {logos.map((logo) => (
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          class:list={['logo', { grayscale }]}
+          loading="lazy"
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .logo-grid {
+    padding: 3rem 1.5rem;
+    background-color: var(--color-surface);
+  }
+
+  .logo-grid-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .grid-title {
+    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin: 0 0 2rem;
+  }
+
+  .logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    transition: filter var(--transition-fast);
+  }
+
+  .logo.grayscale {
+    filter: grayscale(100%) opacity(0.5);
+  }
+
+  .logo.grayscale:hover {
+    filter: none;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+/**
+ * CookieBanner.astro
+ *
+ * WANN NUTZEN:
+ * Nur wenn ausschließlich technisch notwendige Cookies
+ * verwendet werden und KEINE externen Dienste eingebunden
+ * sind (kein Maps, kein Analytics, keine CDN-Fonts,
+ * keine Videos).
+ *
+ * Speichert Bestätigung dauerhaft in localStorage.
+ * Feuert keine Events.
+ *
+ * Für externe Dienste → CookieConsent.astro verwenden!
+ */
+
+interface Props {
+  privacyHref?: string;
+}
+
+const { privacyHref = '/datenschutz' } = Astro.props;
+---
+
+<div id="cookie-banner" style="display: none;" role="region" aria-label="Cookie-Hinweis">
+  <p>
+    Diese Website verwendet ausschließlich technisch notwendige Cookies — keine Tracking- oder
+    Marketing-Cookies. Mehr dazu in der
+    <a href={privacyHref}>Datenschutzerklärung</a>.
+  </p>
+  <button id="cookie-close" type="button" aria-label="Hinweis schließen">Verstanden</button>
+</div>
+
+<style>
+  #cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: var(--color-primary-dark);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-lg);
+  }
+
+  #cookie-banner p {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  #cookie-banner a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  #cookie-close {
+    background: none;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  #cookie-close:hover {
+    border-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+</style>
+
+<script>
+  const banner   = document.getElementById('cookie-banner');
+  const closeBtn = document.getElementById('cookie-close');
+
+  // Prüfen ob bereits bestätigt (einheitliches Format mit CookieConsent)
+  try {
+    const consent = JSON.parse(localStorage.getItem('cookie_consent') ?? 'null');
+    if (!consent?.necessary) {
+      if (banner) banner.style.display = 'flex';
+    }
+  } catch {
+    if (banner) banner.style.display = 'flex';
+  }
+
+  closeBtn?.addEventListener('click', () => {
+    localStorage.setItem('cookie_consent', JSON.stringify({
+      necessary: true,
+      date: new Date().toISOString(),
+    }));
+    if (banner) banner.style.display = 'none';
+  });
+</script>

@@ -1,0 +1,84 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  text?: string;
+}
+
+interface Props {
+  steps: Step[];
+  layout?: 'vertical' | 'horizontal';
+}
+
+const { steps, layout = 'horizontal' } = Astro.props;
+---
+
+<section class={`steps steps-${layout}`}>
+  <div class="steps-inner">
+    {steps.map((step) => (
+      <div class="step">
+        <span class="step-number">{step.number}</span>
+        <h3>{step.title}</h3>
+        {step.text && <p>{step.text}</p>}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .steps {
+    padding: var(--spacing-section) 1.5rem;
+    background-color: var(--color-background);
+  }
+
+  .steps-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .steps-horizontal .steps-inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .steps-vertical .steps-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 640px;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .steps-vertical .step {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .step-number {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

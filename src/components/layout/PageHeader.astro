@@ -1,0 +1,77 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  breadcrumb?: BreadcrumbItem[];
+}
+
+const { title, subtitle, breadcrumb } = Astro.props;
+---
+
+<div class="page-header">
+  <div class="page-header-inner">
+    {breadcrumb && breadcrumb.length > 0 && (
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Start</a>
+        {breadcrumb.map((item, i) => (
+          <>
+            <span aria-hidden="true"> / </span>
+            {i < breadcrumb.length - 1
+              ? <a href={item.href}>{item.label}</a>
+              : <span aria-current="page">{item.label}</span>
+            }
+          </>
+        ))}
+      </nav>
+    )}
+    <h1>{title}</h1>
+    {subtitle && <p class="subtitle">{subtitle}</p>}
+  </div>
+</div>
+
+<style>
+  .page-header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 3rem 0;
+  }
+
+  .page-header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .breadcrumb {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-light);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: var(--text-4xl);
+    color: var(--color-primary);
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    max-width: var(--max-width-text);
+  }
+</style>

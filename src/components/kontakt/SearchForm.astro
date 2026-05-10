@@ -1,0 +1,104 @@
+---
+interface Props {
+  action?: string;
+  placeholder?: string;
+  buttonLabel?: string;
+  size?: 'sm' | 'md' | 'lg';
+  ariaLabel?: string;
+}
+
+const {
+  action = '/suche',
+  placeholder = 'Suchen …',
+  buttonLabel = 'Suchen',
+  size = 'md',
+  ariaLabel = 'Suchformular',
+} = Astro.props;
+---
+
+<form class:list={['search-form', `size-${size}`]} method="GET" action={action} role="search" aria-label={ariaLabel}>
+  <label for="search-input" class="sr-only">Suchbegriff eingeben</label>
+  <div class="search-wrap">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input
+      type="search"
+      id="search-input"
+      name="q"
+      placeholder={placeholder}
+      autocomplete="off"
+      aria-label={placeholder}
+    />
+    <button type="submit" aria-label={buttonLabel}>{buttonLabel}</button>
+  </div>
+</form>
+
+<style>
+  .search-form { width: 100%; }
+
+  .search-wrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background-color: var(--color-background);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .search-wrap:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(26,46,74,0.1);
+  }
+
+  .search-icon {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+  }
+
+  .size-sm .search-icon { margin: 0 0.625rem 0 0.875rem; width: 14px; height: 14px; }
+  .size-md .search-icon { margin: 0 0.75rem 0 1.125rem; }
+  .size-lg .search-icon { margin: 0 0.875rem 0 1.25rem; width: 20px; height: 20px; }
+
+  input[type='search'] {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    color: var(--color-text);
+  }
+
+  input[type='search']::placeholder { color: var(--color-text-muted); }
+
+  .size-sm input { font-size: var(--text-sm); padding: 0.5rem 0; }
+  .size-md input { font-size: var(--text-base); padding: 0.75rem 0; }
+  .size-lg input { font-size: var(--text-lg); padding: 1rem 0; }
+
+  button {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    border-radius: 0 var(--radius-full) var(--radius-full) 0;
+    white-space: nowrap;
+  }
+
+  button:hover { background-color: var(--color-primary-light); }
+
+  .size-sm button { font-size: var(--text-xs); padding: 0.5rem 1rem; }
+  .size-md button { font-size: var(--text-sm); padding: 0.75rem 1.25rem; }
+  .size-lg button { font-size: var(--text-base); padding: 1rem 1.5rem; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+interface Props {
+  company: string;
+  address: string;
+  email: string;
+  phone?: string;
+  mapLink?: string;
+}
+
+const { company, address, email, phone, mapLink } = Astro.props;
+---
+
+<div class="contact-info">
+  <h3>{company}</h3>
+
+  <div class="info-item">
+    <span class="label">Adresse</span>
+    {mapLink ? (
+      <a href={mapLink} target="_blank" rel="noopener noreferrer" class="address">{address}</a>
+    ) : (
+      <p class="address">{address}</p>
+    )}
+  </div>
+
+  <div class="info-item">
+    <span class="label">E-Mail</span>
+    <a href={`mailto:${email}`}>{email}</a>
+  </div>
+
+  {phone && (
+    <div class="info-item">
+      <span class="label">Telefon</span>
+      <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
+    </div>
+  )}
+</div>
+
+<style>
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  a,
+  .address {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    text-decoration: none;
+    margin: 0;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  a:hover {
+    color: var(--color-primary);
+  }
+</style>

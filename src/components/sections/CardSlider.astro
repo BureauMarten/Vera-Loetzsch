@@ -1,0 +1,364 @@
+---
+interface Card {
+  image?: string;
+  title: string;
+  text?: string;
+  label?: string;
+  href?: string;
+}
+
+interface Props {
+  cards: Card[];
+  visibleDesktop?: number;
+  visibleTablet?: number;
+  autoplay?: boolean;
+  autoplayInterval?: number;
+  showArrows?: boolean;
+  gap?: string;
+  ariaLabel?: string;
+  ariaPrevLabel?: string;
+  ariaNextLabel?: string;
+}
+
+const {
+  cards,
+  visibleDesktop = 3,
+  visibleTablet = 2,
+  autoplay = true,
+  autoplayInterval = 4000,
+  showArrows = true,
+  gap = '1.5rem',
+  ariaLabel = 'Inhalte',
+  ariaPrevLabel = 'Vorherige',
+  ariaNextLabel = 'Nächste',
+} = Astro.props;
+---
+
+<section
+  class="card-slider"
+  data-autoplay={autoplay}
+  data-interval={autoplayInterval}
+  data-visible-desktop={visibleDesktop}
+  data-visible-tablet={visibleTablet}
+  data-gap={gap}
+  aria-label={ariaLabel}
+  aria-roledescription="Slider"
+>
+  <div class="card-track">
+    {cards.map((card) => (
+      <div class="card-slide">
+        {card.href ? (
+          <a href={card.href} class="card-inner">
+            {card.image && (
+              <div class="card-image">
+                <img src={card.image} alt={card.title} loading="lazy" />
+              </div>
+            )}
+            <div class="card-body">
+              {card.label && <span class="card-label">{card.label}</span>}
+              <h3>{card.title}</h3>
+              {card.text && <p>{card.text}</p>}
+            </div>
+          </a>
+        ) : (
+          <div class="card-inner">
+            {card.image && (
+              <div class="card-image">
+                <img src={card.image} alt={card.title} loading="lazy" />
+              </div>
+            )}
+            <div class="card-body">
+              {card.label && <span class="card-label">{card.label}</span>}
+              <h3>{card.title}</h3>
+              {card.text && <p>{card.text}</p>}
+            </div>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {showArrows && (
+    <div class="card-arrows">
+      <button class="arrow arrow-prev" aria-label={ariaPrevLabel}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button class="arrow arrow-next" aria-label={ariaNextLabel}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  )}
+</section>
+
+<style>
+  .card-slider {
+    position: relative;
+    padding: var(--spacing-section) 1.5rem;
+    overflow: hidden;
+  }
+
+  .card-track {
+    display: flex;
+    transition: transform 500ms ease;
+    will-change: transform;
+  }
+
+  .card-track.no-transition {
+    transition: none;
+  }
+
+  .card-slide {
+    flex-shrink: 0;
+    /* Breite wird per JS gesetzt */
+  }
+
+  .card-inner {
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-background);
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+
+  a.card-inner:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .card-image {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background-color: var(--color-surface-dark);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  a.card-inner:hover .card-image img {
+    transform: scale(1.04);
+  }
+
+  .card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .card-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Pfeile */
+  .card-arrows {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .arrow {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .arrow:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-secondary);
+  }
+</style>
+
+<script>
+  const sliders = document.querySelectorAll<HTMLElement>('.card-slider');
+
+  sliders.forEach((slider) => {
+    const track = slider.querySelector<HTMLElement>('.card-track')!;
+    const prevBtn = slider.querySelector<HTMLButtonElement>('.arrow-prev');
+    const nextBtn = slider.querySelector<HTMLButtonElement>('.arrow-next');
+    const autoplay = slider.dataset.autoplay !== 'false';
+    const interval = parseInt(slider.dataset.interval ?? '4000');
+    const visibleDesktop = parseInt(slider.dataset.visibleDesktop ?? '3');
+    const visibleTablet = parseInt(slider.dataset.visibleTablet ?? '2');
+    const gapValue = slider.dataset.gap ?? '1.5rem';
+
+    const originalSlides = Array.from(track.children) as HTMLElement[];
+    const total = originalSlides.length;
+    if (total < 2) return;
+
+    // Gap in px umrechnen
+    function getGapPx(): number {
+      const tmp = document.createElement('div');
+      tmp.style.width = gapValue;
+      tmp.style.position = 'absolute';
+      tmp.style.visibility = 'hidden';
+      document.body.appendChild(tmp);
+      const px = tmp.getBoundingClientRect().width;
+      document.body.removeChild(tmp);
+      return px;
+    }
+
+    function getVisible(): number {
+      const w = slider.clientWidth;
+      if (w < 640) return 1;
+      if (w < 1024) return visibleTablet;
+      return visibleDesktop;
+    }
+
+    let slideWidth = 0;
+    let visible = 1;
+    let current = 1;
+    let isTransitioning = false;
+
+    function calcDimensions() {
+      visible = getVisible();
+      const gapPx = getGapPx();
+      // Peek-Effekt: nächste Card schaut zu 1/3 herein → sichtbare Breite = visible + 1/3
+      const totalGaps = visible * gapPx; // gap auch vor dem Peek-Anteil
+      slideWidth = (slider.clientWidth - totalGaps) / (visible + 1 / 3);
+
+      // Gap auf Track setzen
+      track.style.gap = gapValue;
+
+      // Breite auf alle Slides (inkl. Klone) setzen
+      Array.from(track.children).forEach((slide) => {
+        (slide as HTMLElement).style.width = `${slideWidth}px`;
+      });
+
+      // Position neu berechnen ohne Animation
+      goTo(current, false);
+    }
+
+    function getOffset(index: number): number {
+      const gapPx = getGapPx();
+      return index * (slideWidth + gapPx);
+    }
+
+    function goTo(index: number, animated = true) {
+      if (!animated) track.classList.add('no-transition');
+      track.style.transform = `translateX(-${getOffset(index)}px)`;
+      if (!animated) {
+        track.getBoundingClientRect();
+        track.classList.remove('no-transition');
+      }
+      current = index;
+    }
+
+    function next() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      goTo(current + 1);
+    }
+
+    function prev() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      goTo(current - 1);
+    }
+
+    // Klone für Infinite Loop — so viele wie `visible` auf jeder Seite
+    function buildClones() {
+      // Bestehende Klone entfernen
+      track.querySelectorAll('.clone').forEach(c => c.remove());
+
+      // Hinten: Kopien der ersten `visible` Slides
+      for (let i = 0; i < visible; i++) {
+        const clone = originalSlides[i % total].cloneNode(true) as HTMLElement;
+        clone.classList.add('clone');
+        track.appendChild(clone);
+      }
+      // Vorne: Kopien der letzten `visible` Slides
+      for (let i = visible - 1; i >= 0; i--) {
+        const clone = originalSlides[(total - 1 - (visible - 1 - i) + total) % total].cloneNode(true) as HTMLElement;
+        clone.classList.add('clone');
+        track.insertBefore(clone, track.firstChild);
+      }
+
+      current = visible; // Nach Klonen vorne starten beim ersten echten Slide
+    }
+
+    // Infinite-Loop-Sprung
+    track.addEventListener('transitionend', () => {
+      const allSlides = Array.from(track.children);
+      const cloneCount = visible;
+
+      // Zu weit rechts (auf rechten Klonen)
+      if (current >= total + cloneCount) {
+        goTo(cloneCount, false);
+      }
+      // Zu weit links (auf linken Klonen)
+      if (current < cloneCount) {
+        goTo(total + cloneCount - visible, false);
+      }
+      isTransitioning = false;
+    });
+
+    // Init
+    buildClones();
+    calcDimensions();
+
+    // Resize
+    const ro = new ResizeObserver(() => {
+      buildClones();
+      calcDimensions();
+    });
+    ro.observe(slider);
+
+    // Controls
+    nextBtn?.addEventListener('click', next);
+    prevBtn?.addEventListener('click', prev);
+
+    // Autoplay
+    if (autoplay) {
+      let timer = setInterval(next, interval);
+      slider.addEventListener('mouseenter', () => clearInterval(timer));
+      slider.addEventListener('mouseleave', () => { timer = setInterval(next, interval); });
+    }
+
+    // Touch/Swipe
+    let touchStartX = 0;
+    slider.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+    });
+  });
+</script>

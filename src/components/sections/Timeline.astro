@@ -1,0 +1,203 @@
+---
+interface TimelineEntry {
+  year: string;
+  title: string;
+  text?: string;
+}
+
+interface Props {
+  entries: TimelineEntry[];
+  layout?: 'vertical' | 'alternating';
+}
+
+const { entries, layout = 'vertical' } = Astro.props;
+---
+
+<section class={`timeline timeline-${layout}`}>
+  <div class="timeline-inner">
+    {entries.map((entry, i) => (
+      <div class:list={['timeline-entry', { even: i % 2 !== 0, last: i === entries.length - 1 }]}>
+        <div class="timeline-marker">
+          <span class="marker-dot" />
+          {i < entries.length - 1 && <span class="marker-line" aria-hidden="true" />}
+        </div>
+        <div class="timeline-content">
+          <span class="year">{entry.year}</span>
+          <h3>{entry.title}</h3>
+          {entry.text && <p>{entry.text}</p>}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline {
+    padding: var(--spacing-section) 1.5rem;
+    background-color: var(--color-background);
+  }
+
+  .timeline-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── Vertical ── */
+  .timeline-vertical .timeline-inner {
+    padding-left: 2rem;
+  }
+
+  .timeline-entry {
+    position: relative;
+    padding: 0 0 2.5rem 2rem;
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .timeline-entry.last {
+    padding-bottom: 0;
+  }
+
+  /* Marker-Container: hält Dot + Linie übereinander */
+  .timeline-marker {
+    position: absolute;
+    left: calc(-2rem + 11px);
+    top: 0.25rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .marker-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 2px solid var(--color-background);
+    box-shadow: 0 0 0 2px var(--color-accent);
+    flex-shrink: 0;
+    display: block;
+  }
+
+  /* Linie wächst mit dem Entry-Inhalt mit */
+  .marker-line {
+    width: 2px;
+    flex: 1;
+    background-color: var(--color-border);
+    /* Höhe = Entry-Padding-Bottom + Abstand zum nächsten Dot */
+    min-height: calc(2.5rem + 0.25rem);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Damit .marker-line wirklich die volle Entry-Höhe füllt */
+  .timeline-entry {
+    align-items: stretch;
+  }
+
+  .timeline-marker {
+    /* Höhe des Markers = Höhe des Entry */
+    bottom: 0;
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding-bottom: 0;
+  }
+
+  .year {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.05em;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── Alternating ── */
+  .timeline-alternating .timeline-inner {
+    padding-left: 0;
+    max-width: var(--max-width);
+    position: relative;
+  }
+
+  .timeline-alternating .timeline-entry {
+    width: 50%;
+    padding: 0 3rem 2.5rem 0;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .timeline-alternating .timeline-entry.even {
+    margin-left: 50%;
+    padding: 0 0 2.5rem 3rem;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .timeline-alternating .timeline-entry.last,
+  .timeline-alternating .timeline-entry.even.last {
+    padding-bottom: 0;
+  }
+
+  /* Marker auf der Mittellinie */
+  .timeline-alternating .timeline-marker {
+    left: auto;
+    right: -7px;
+    transform: none;
+  }
+
+  .timeline-alternating .timeline-entry.even .timeline-marker {
+    left: -7px;
+    right: auto;
+    transform: none;
+  }
+
+  /* Linie für alternating — zentriert zwischen den Entries */
+  .timeline-alternating .marker-line {
+    min-height: calc(2.5rem + 0.25rem);
+  }
+
+  /* Mobile Alternating → Vertical */
+  @media (max-width: 768px) {
+    .timeline-alternating .timeline-inner {
+      padding-left: 2rem;
+    }
+
+    .timeline-alternating .timeline-entry,
+    .timeline-alternating .timeline-entry.even {
+      width: 100%;
+      margin-left: 0;
+      padding: 0 0 2.5rem 2rem;
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    .timeline-alternating .timeline-entry.last,
+    .timeline-alternating .timeline-entry.even.last {
+      padding-bottom: 0;
+    }
+
+    .timeline-alternating .timeline-marker,
+    .timeline-alternating .timeline-entry.even .timeline-marker {
+      left: calc(-2rem + 11px);
+      right: auto;
+      transform: translateX(-50%);
+    }
+  }
+</style>

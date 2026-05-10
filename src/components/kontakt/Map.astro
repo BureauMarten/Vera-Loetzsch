@@ -1,0 +1,290 @@
+---
+interface Marker {
+  lat: number;
+  lng: number;
+  popup?: string;
+}
+
+// Tile-Presets — per `tile`-Prop wählbar, oder komplett mit `tileUrl`/`tileAttribution` überschreiben
+const TILE_PRESETS = {
+  'stadia-smooth': {
+    url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
+    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank" rel="noopener">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+  },
+  'stadia-dark': {
+    url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank" rel="noopener">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+  },
+  'stadia-outdoors': {
+    url: 'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
+    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank" rel="noopener">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+  },
+  'carto-positron': {
+    url: 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+  },
+  'carto-dark': {
+    url: 'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+  },
+  'osm': {
+    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+  },
+} as const;
+
+type TilePreset = keyof typeof TILE_PRESETS;
+
+interface Props {
+  lat: number;
+  lng: number;
+  zoom?: number;
+  height?: string;
+  markers?: Marker[];
+  // Preset-Name — einfachste Option
+  tile?: TilePreset;
+  // Oder komplett eigene Tiles
+  tileUrl?: string;
+  tileAttribution?: string;
+  ariaLabel?: string;
+  radius?: string;
+  blockerTitle?: string;
+  blockerText?: string;
+  blockerButtonLabel?: string;
+}
+
+const {
+  lat,
+  lng,
+  zoom = 15,
+  height = '400px',
+  markers = [],
+  tile = 'stadia-smooth',
+  tileUrl,
+  tileAttribution,
+  ariaLabel = 'Standortkarte',
+  radius = 'var(--radius-md)',
+  blockerTitle = 'Karte laden',
+  blockerText = 'Für die Kartenanzeige werden Daten von externen Kartenanbietern geladen. Bitte stimme der Nutzung zu.',
+  blockerButtonLabel = 'Karte anzeigen & Cookies akzeptieren',
+} = Astro.props;
+
+// Preset oder individuelle URL
+const resolvedTileUrl = tileUrl ?? TILE_PRESETS[tile].url;
+const resolvedAttribution = tileAttribution ?? TILE_PRESETS[tile].attribution;
+
+const mapId = `map-${Math.random().toString(36).slice(2, 8)}`;
+const allMarkers = markers.length > 0 ? markers : [{ lat, lng }];
+---
+
+<div class="map-wrapper" style={`height: ${height}; border-radius: ${radius}`}>
+  <!-- Content-Blocker — sichtbar bis Consent gegeben -->
+  <div class="map-blocker" id={`${mapId}-blocker`} aria-live="polite">
+    <div class="blocker-inner">
+      <svg class="blocker-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+      <p class="blocker-title">{blockerTitle}</p>
+      <p class="blocker-text">{blockerText}</p>
+      <button class="blocker-btn" id={`${mapId}-consent-btn`} type="button">
+        {blockerButtonLabel}
+      </button>
+    </div>
+  </div>
+
+  <!-- Karte — wird erst nach Consent initialisiert -->
+  <div
+    id={mapId}
+    class="map-container"
+    role="application"
+    aria-label={ariaLabel}
+    style="display:none"
+  ></div>
+</div>
+
+<style>
+  .map-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: var(--color-surface-dark);
+  }
+
+  /* Content-Blocker */
+  .map-blocker {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Kartenmuster als Hintergrund — macht klar dass hier eine Karte blockiert ist */
+    background-color: var(--color-surface-dark);
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 10;
+  }
+
+  .blocker-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    max-width: 360px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .blocker-icon {
+    color: var(--color-primary);
+    opacity: 0.6;
+  }
+
+  .blocker-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .blocker-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .blocker-btn {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    margin-top: 0.25rem;
+  }
+
+  .blocker-btn:hover {
+    background-color: var(--color-primary-light);
+  }
+
+  /* Karte */
+  .map-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.leaflet-container) {
+    height: 100%;
+    width: 100%;
+    font-family: var(--font-sans);
+  }
+
+  :global(.leaflet-popup-content-wrapper) {
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+
+  :global(.leaflet-control-attribution) {
+    font-size: 10px;
+  }
+</style>
+
+<script is:inline define:vars={{ mapId, lat, lng, zoom, allMarkers, tileUrl: resolvedTileUrl, tileAttribution: resolvedAttribution }}>
+  const blocker = document.getElementById(mapId + '-blocker');
+  const mapEl   = document.getElementById(mapId);
+  const btn     = document.getElementById(mapId + '-consent-btn');
+
+  function loadLeaflet() {
+    return new Promise((resolve) => {
+      if (window.L) return resolve(window.L);
+      if (!document.getElementById('leaflet-css')) {
+        const link = document.createElement('link');
+        link.id = 'leaflet-css';
+        link.rel = 'stylesheet';
+        link.href = '/leaflet/leaflet.css';
+        document.head.appendChild(link);
+      }
+      const script = document.createElement('script');
+      script.src = '/leaflet/leaflet.js';
+      script.onload = () => resolve(window.L);
+      document.head.appendChild(script);
+    });
+  }
+
+  function initMap() {
+    if (!mapEl || mapEl.dataset.initialized) return;
+    mapEl.dataset.initialized = '1';
+
+    // Blocker ausblenden, Karte einblenden
+    if (blocker) blocker.style.display = 'none';
+    if (mapEl) mapEl.style.display = 'block';
+
+    loadLeaflet().then((L) => {
+      const map = L.map(mapEl, {
+        center: [lat, lng],
+        zoom,
+        scrollWheelZoom: false,
+      });
+
+      L.tileLayer(tileUrl, {
+        attribution: tileAttribution,
+        maxZoom: 20,
+      }).addTo(map);
+
+      const icon = L.icon({
+        iconUrl: '/leaflet/images/marker-icon.png',
+        iconRetinaUrl: '/leaflet/images/marker-icon-2x.png',
+        shadowUrl: '/leaflet/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
+
+      allMarkers.forEach(({ lat: mLat, lng: mLng, popup }) => {
+        const marker = L.marker([mLat, mLng], { icon }).addTo(map);
+        if (popup) marker.bindPopup(popup);
+      });
+    });
+  }
+
+  function hasServiceConsent() {
+    try {
+      const c = JSON.parse(localStorage.getItem('cookie_consent') ?? 'null');
+      return c?.services === true;
+    } catch { return false; }
+  }
+
+  // Consent bereits vorhanden → Karte sofort laden
+  if (hasServiceConsent()) {
+    initMap();
+  }
+
+  // Button im Blocker → Services-Consent setzen + Karte laden
+  btn?.addEventListener('click', () => {
+    const existing = JSON.parse(localStorage.getItem('cookie_consent') ?? '{}');
+    const updated = { necessary: true, services: true, analytics: existing.analytics ?? false, date: new Date().toISOString() };
+    localStorage.setItem('cookie_consent', JSON.stringify(updated));
+    document.dispatchEvent(new CustomEvent('cookie-consent-services'));
+    initMap();
+  });
+
+  // Event von globalem CookieConsent-Banner
+  document.addEventListener('cookie-consent-services', initMap);
+  document.addEventListener('cookie-consent-all', initMap);
+</script>

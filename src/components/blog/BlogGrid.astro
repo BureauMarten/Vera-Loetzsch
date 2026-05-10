@@ -1,0 +1,72 @@
+---
+import BlogCard from './BlogCard.astro';
+
+interface BlogPost {
+  title: string;
+  teaser?: string;
+  image?: string;
+  date?: string;
+  category?: string;
+  href: string;
+  author?: string;
+  readingTime?: string;
+}
+
+interface Props {
+  posts: BlogPost[];
+  columns?: 2 | 3;
+  eyebrow?: string;
+  title?: string;
+}
+
+const { posts, columns = 3, eyebrow, title } = Astro.props;
+---
+
+<section class="blog-section">
+  <div class="blog-inner">
+    {(eyebrow || title) && (
+      <div class="blog-header">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        {title   && <h2>{title}</h2>}
+      </div>
+    )}
+    <div class="blog-grid" style={`--columns: ${columns}`}>
+      {posts.map((post) => <BlogCard {...post} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-section { padding: var(--spacing-section) 1.5rem; }
+
+  .blog-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .blog-header { margin-bottom: 2.5rem; }
+
+  .eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 0.75rem;
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 1024px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px)  { .blog-grid { grid-template-columns: 1fr; } }
+</style>

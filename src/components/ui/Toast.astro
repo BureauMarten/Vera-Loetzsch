@@ -1,0 +1,117 @@
+---
+// Toast / Notification — wird per JS-Event ausgelöst
+// Verwendung: document.dispatchEvent(new CustomEvent('toast', { detail: { message: '...', type: 'success' } }))
+
+interface Props {
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+  duration?: number; // ms, default 4000
+}
+
+const { position = 'bottom-right', duration = 4000 } = Astro.props;
+---
+
+<div id="toast-container" class={`toast-container pos-${position}`} aria-live="polite" aria-atomic="false"></div>
+
+<style>
+  .toast-container {
+    position: fixed;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+
+  /* Positionen */
+  .pos-top-right    { top: 1.5rem; right: 1.5rem; align-items: flex-end; }
+  .pos-top-left     { top: 1.5rem; left: 1.5rem; align-items: flex-start; }
+  .pos-bottom-right { bottom: 1.5rem; right: 1.5rem; align-items: flex-end; }
+  .pos-bottom-left  { bottom: 1.5rem; left: 1.5rem; align-items: flex-start; }
+  .pos-top-center    { top: 1.5rem; left: 50%; transform: translateX(-50%); align-items: center; }
+  .pos-bottom-center { bottom: 1.5rem; left: 50%; transform: translateX(-50%); align-items: center; }
+
+  /* Einzelner Toast — wird per JS eingefügt */
+  :global(.toast) {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+    max-width: 360px;
+    animation: toastIn 200ms ease forwards;
+  }
+
+  :global(.toast.toast-exit) {
+    animation: toastOut 200ms ease forwards;
+  }
+
+  :global(.toast-success) { background-color: #16a34a; color: #fff; }
+  :global(.toast-error)   { background-color: #dc2626; color: #fff; }
+  :global(.toast-warning) { background-color: var(--color-accent); color: #fff; }
+  :global(.toast-info)    { background-color: var(--color-primary); color: #fff; }
+
+  :global(.toast-close) {
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.7;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    font-size: 1rem;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  :global(.toast-close:hover) { opacity: 1; }
+
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(8px); }
+  }
+</style>
+
+<script define:vars={{ duration }}>
+  const container = document.getElementById('toast-container');
+  const timers = new WeakMap();
+
+  function showToast({ message, type = 'info' }) {
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `<span>${message}</span><button class="toast-close" aria-label="Schließen" type="button">✕</button>`;
+
+    toast.querySelector('.toast-close').addEventListener('click', () => dismiss(toast));
+
+    container.appendChild(toast);
+
+    // Auto-dismiss nach duration ms
+    timers.set(toast, setTimeout(() => dismiss(toast), duration));
+  }
+
+  function dismiss(toast) {
+    // Timer stoppen falls noch aktiv
+    clearTimeout(timers.get(toast));
+    timers.delete(toast);
+
+    toast.classList.add('toast-exit');
+
+    // animationend als primäres Signal, setTimeout als Fallback
+    const remove = () => toast.remove();
+    toast.addEventListener('animationend', remove, { once: true });
+    setTimeout(remove, 300);
+  }
+
+  document.addEventListener('toast', (e) => showToast(e.detail));
+</script>

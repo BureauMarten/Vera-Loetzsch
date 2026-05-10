@@ -1,0 +1,316 @@
+---
+/**
+ * Sidebar.astro
+ *
+ * Mobile-First Layout:
+ * - Mobile: Akkordeon mit Navigation oben, Hauptinhalt darunter
+ * - Desktop (≥ 768px): Sidebar links, Hauptinhalt rechts (Grid)
+ *
+ * Verwendung:
+ * <Sidebar items={navItems} title="Bereich">
+ *   <h1>Hauptinhalt</h1>
+ *   <p>...</p>
+ * </Sidebar>
+ *
+ * Optional: zusätzlicher Inhalt unter der Navigation
+ * <Sidebar items={navItems}>
+ *   <div slot="nav-extra">Weitere Filter o.ä.</div>
+ *   <h1>Hauptinhalt</h1>
+ * </Sidebar>
+ */
+
+interface NavItem {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+}
+
+interface Props {
+  items?: NavItem[];
+  title?: string;
+  sticky?: boolean;
+  ariaLabel?: string;
+  drawerLabel?: string;
+  position?: 'left' | 'right';
+}
+
+const {
+  items = [],
+  title,
+  sticky = true,
+  ariaLabel = 'Seitennavigation',
+  drawerLabel = 'Navigation',
+  position = 'left',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const uid = `sb-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<div class:list={['sidebar-wrapper', `pos-${position}`, { sticky }]}>
+
+  {/* ── Navigation Container (wird auf Mobile zum Akkordeon) ── */}
+  <aside class="sidebar" aria-label={ariaLabel}>
+
+    {/* Mobile-Toggle (nur auf Mobile sichtbar) */}
+    <button
+      class="acc-toggle"
+      id={`${uid}-btn`}
+      aria-expanded="false"
+      aria-controls={`${uid}-body`}
+      type="button"
+    >
+      <span>{drawerLabel}</span>
+      <svg class="acc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+
+    {/* Navigation - auf Mobile im Akkordeon, auf Desktop immer sichtbar */}
+    <div class="nav-container" id={`${uid}-body`}>
+      <div class="nav-inner">
+        {title && <p class="sidebar-title">{title}</p>}
+        {items.length > 0 && (
+          <nav aria-label={ariaLabel}>
+            <ul>
+              {items.map((item) => (
+                <li class="nav-item">
+                  <a
+                    href={item.href}
+                    class:list={['nav-link', { active: currentPath === item.href || currentPath.startsWith(item.href + '/') }]}
+                    aria-current={currentPath === item.href ? 'page' : undefined}
+                  >{item.label}</a>
+                  {item.children && item.children.length > 0 && (
+                    <ul class="sub-nav">
+                      {item.children.map((child) => (
+                        <li>
+                          <a
+                            href={child.href}
+                            class:list={['sub-link', { active: currentPath === child.href }]}
+                            aria-current={currentPath === child.href ? 'page' : undefined}
+                          >{child.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        <slot name="nav-extra" />
+      </div>
+    </div>
+  </aside>
+
+  {/* ── Hauptinhalt (Default-Slot) ── */}
+  <main class="sidebar-main">
+    <slot />
+  </main>
+
+</div>
+
+<style>
+  /* ════════════════════════════════════════
+     MOBILE-FIRST (Standard)
+     Einspaltig: Navigation oben, Inhalt unten
+     ════════════════════════════════════════ */
+
+  .sidebar-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-main {
+    width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  /* Akkordeon-Toggle (nur Mobile sichtbar) */
+  .acc-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .acc-toggle:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-primary);
+  }
+
+  .acc-chevron {
+    transition: transform var(--transition-normal);
+    flex-shrink: 0;
+  }
+
+  .acc-toggle[aria-expanded='true'] .acc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .acc-toggle[aria-expanded='true'] {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    border-bottom: none;
+  }
+
+  /* Akkordeon-Body — grid-Trick für saubere Höhen-Transition */
+  .nav-container {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-normal);
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+
+  .nav-container.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .nav-inner {
+    overflow: hidden;
+    padding: 0 1rem;
+    transition: padding var(--transition-normal);
+  }
+
+  .nav-container.is-open .nav-inner {
+    padding: 1rem;
+  }
+
+  /* ── Nav-Styles ── */
+  .sidebar-title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin: 0 0 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  ul { list-style: none; padding: 0; margin: 0; }
+  .nav-item { margin-bottom: 0.125rem; }
+
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .nav-link:hover { background-color: var(--color-surface); color: var(--color-primary); }
+  .nav-link.active { background-color: var(--color-secondary); color: var(--color-primary); font-weight: 600; }
+
+  .sub-nav {
+    margin: 0.25rem 0 0.5rem 1rem;
+    border-left: 2px solid var(--color-border);
+    padding-left: 0.75rem;
+  }
+
+  .sub-link {
+    display: block;
+    padding: 0.375rem 0.5rem;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast);
+  }
+
+  .sub-link:hover { color: var(--color-primary); }
+  .sub-link.active { color: var(--color-primary); font-weight: 600; }
+
+  /* ════════════════════════════════════════
+     DESKTOP (ab 768px)
+     Zweispaltig: Sidebar + Hauptinhalt
+     ════════════════════════════════════════ */
+  @media (min-width: 768px) {
+
+    .sidebar-wrapper {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .sidebar-wrapper.pos-right {
+      grid-template-columns: 1fr 240px;
+    }
+
+    .sidebar-wrapper.pos-right .sidebar { order: 2; }
+    .sidebar-wrapper.pos-right .sidebar-main { order: 1; }
+
+    /* Sticky Sidebar */
+    .sidebar-wrapper.sticky .sidebar {
+      position: sticky;
+      top: 5rem;
+      max-height: calc(100svh - 6rem);
+      overflow-y: auto;
+    }
+
+    .sidebar { margin-bottom: 0; }
+
+    /* Akkordeon-Mechanik auf Desktop deaktivieren */
+    .acc-toggle { display: none; }
+
+    .nav-container {
+      display: block;
+      border: none;
+      border-radius: 0;
+    }
+
+    .nav-inner {
+      overflow: visible;
+      padding: 0;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sidebar-wrapper').forEach((wrapper) => {
+    const btn  = wrapper.querySelector<HTMLButtonElement>('.acc-toggle');
+    const body = wrapper.querySelector<HTMLElement>('.nav-container');
+    if (!btn || !body) return;
+
+    function open() {
+      body!.classList.add('is-open');
+      btn!.setAttribute('aria-expanded', 'true');
+    }
+
+    function close() {
+      body!.classList.remove('is-open');
+      btn!.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', () => {
+      body!.classList.contains('is-open') ? close() : open();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && body!.classList.contains('is-open')) {
+        close();
+        btn?.focus();
+      }
+    });
+  });
+</script>

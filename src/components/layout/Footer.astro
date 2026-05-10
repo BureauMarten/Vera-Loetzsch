@@ -1,0 +1,93 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  navItems: NavItem[];
+  companyName: string;
+  year?: number;
+}
+
+const { navItems, companyName, year = new Date().getFullYear() } = Astro.props;
+
+const legalLinks = [
+  { label: 'Impressum', href: '/impressum' },
+  { label: 'Datenschutz', href: '/datenschutz' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Footer-Navigation">
+      {navItems.map((item) => (
+        <a href={item.href} class="footer-link">{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="footer-legal">
+      <div class="legal-links">
+        {legalLinks.map((item) => (
+          <a href={item.href} class="footer-link">{item.label}</a>
+        ))}
+      </div>
+      <p class="copyright">© {year} {companyName}. Alle Rechte vorbehalten.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-surface-dark);
+    border-top: 1px solid var(--color-border);
+    padding: 3rem 0 2rem;
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-link {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-link:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .legal-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .copyright {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import AccordionItem from '../leistungen/AccordionItem.astro';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  title?: string;
+  eyebrow?: string;
+  columns?: 1 | 2;
+  background?: 'light' | 'white';
+}
+
+const {
+  items,
+  title,
+  eyebrow,
+  columns = 1,
+  background = 'white',
+} = Astro.props;
+
+// Bei 2 Spalten: Items aufteilen
+const half = Math.ceil(items.length / 2);
+const left  = columns === 2 ? items.slice(0, half) : items;
+const right  = columns === 2 ? items.slice(half)   : [];
+---
+
+<section class:list={['faq-section', `bg-${background}`]}>
+  <div class="faq-inner">
+    {(eyebrow || title) && (
+      <div class="faq-header">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        {title   && <h2>{title}</h2>}
+      </div>
+    )}
+
+    <div class:list={['faq-grid', { 'two-col': columns === 2 }]}>
+      <div class="faq-col">
+        {left.map((item, i) => (
+          <AccordionItem
+            number={String(i + 1).padStart(2, '0')}
+            title={item.question}
+            content={item.answer}
+            group="faq"
+          />
+        ))}
+      </div>
+      {columns === 2 && right.length > 0 && (
+        <div class="faq-col">
+          {right.map((item, i) => (
+            <AccordionItem
+              number={String(half + i + 1).padStart(2, '0')}
+              title={item.question}
+              content={item.answer}
+              group="faq"
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section { padding: var(--spacing-section) 1.5rem; }
+  .bg-white { background-color: var(--color-background); }
+  .bg-light { background-color: var(--color-surface); }
+
+  .faq-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .faq-header {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 0.75rem;
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .faq-grid { display: grid; grid-template-columns: 1fr; }
+  .faq-grid.two-col { grid-template-columns: 1fr 1fr; gap: 0 3rem; }
+
+  @media (max-width: 768px) {
+    .faq-grid.two-col { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════
+   DESIGN TOKENS — hier alles anpassen
+   ═══════════════════════════════════════ */
+:root {
+  /* Farben — werden pro Projekt getauscht */
+  --color-primary:        #1C244B;
+  --color-primary-light:  #2e3a72;
+  --color-primary-dark:   #10152c;
+  --color-secondary:      #F3F5F8;
+  --color-accent:         #324A6D;
+
+  /* Neutrals */
+  --color-text:           #1a1a1a;
+  --color-text-light:     #6b7280;
+  --color-text-muted:     #9ca3af;
+  --color-background:     #ffffff;
+  --color-surface:        #f9fafb;
+  --color-surface-dark:   #f3f4f6;
+  --color-border:         #e5e7eb;
+
+  /* Typografie — wird pro Projekt getauscht */
+  --font-sans:    system-ui, sans-serif;
+  --font-heading: system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Schriftgrößen */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+
+  /* Abstände */
+  --spacing-section:    5rem;
+  --spacing-section-sm: 3rem;
+  --max-width:          1280px;
+  --max-width-text:     720px;
+
+  /* Border Radius */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1.5rem;
+  --radius-full: 9999px;
+
+  /* Schatten */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+
+  /* Übergänge */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASIS
+   ═══════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Überschriften */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Absatz Reset — kein ungewollter Außenabstand */
+p {
+  margin: 0;
+}
+
+/* Listen Reset — Komponenten definieren ihr eigenes Styling */
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Bilder — object-fit wird gezielt in Komponenten gesetzt, nicht global */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+/* ═══════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════ */
+
+/* Focus-Styles — wichtig für Tastaturnavigation */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Bewegung reduzieren für Nutzer die das bevorzugen */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════
+   SELEKTION
+   ═══════════════════════════════════════ */
+
+::selection {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ═══════════════════════════════════════
+   TAILWIND THEME MAPPING
+   Alle Tokens als Tailwind-Klassen nutzbar
+   z.B. text-primary, bg-surface, border-border
+   ═══════════════════════════════════════ */
+
+@theme inline {
+  /* Farben */
+  --color-primary:        var(--color-primary);
+  --color-primary-light:  var(--color-primary-light);
+  --color-primary-dark:   var(--color-primary-dark);
+  --color-secondary:      var(--color-secondary);
+  --color-accent:         var(--color-accent);
+
+  /* Neutrals */
+  --color-text:           var(--color-text);
+  --color-text-light:     var(--color-text-light);
+  --color-text-muted:     var(--color-text-muted);
+  --color-background:     var(--color-background);
+  --color-surface:        var(--color-surface);
+  --color-surface-dark:   var(--color-surface-dark);
+  --color-border:         var(--color-border);
+
+  /* Schriften */
+  --font-sans:            var(--font-sans);
+  --font-heading:         var(--font-heading);
+  --font-mono:            var(--font-mono);
+
+  /* Border Radius */
+  --radius-sm:            var(--radius-sm);
+  --radius-md:            var(--radius-md);
+  --radius-lg:            var(--radius-lg);
+  --radius-full:          var(--radius-full);
+}

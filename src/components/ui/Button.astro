@@ -1,0 +1,109 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  fullWidth?: boolean;
+  disabled?: boolean;
+  ariaLabel?: string;
+}
+
+const {
+  label,
+  href,
+  variant = 'primary',
+  size = 'md',
+  type = 'button',
+  fullWidth = false,
+  disabled = false,
+  ariaLabel,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', `btn-${variant}`, `btn-${size}`, { 'btn-full': fullWidth }]}
+  href={href}
+  type={!href ? type : undefined}
+  disabled={!href ? disabled : undefined}
+  aria-label={ariaLabel}
+  aria-disabled={disabled ? 'true' : undefined}
+>
+  <slot />{label}
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Größen */
+  .btn-sm  { font-size: var(--text-xs);   padding: 0.5rem 1rem; }
+  .btn-md  { font-size: var(--text-sm);   padding: 0.75rem 1.5rem; }
+  .btn-lg  { font-size: var(--text-base); padding: 1rem 2rem; }
+
+  .btn-full { width: 100%; }
+
+  /* Varianten */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    border-color: var(--color-secondary);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-border);
+    border-color: var(--color-border);
+    color: var(--color-primary);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  .btn-outline:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-text-light);
+    border-color: transparent;
+  }
+  .btn-ghost:hover {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+  }
+</style>

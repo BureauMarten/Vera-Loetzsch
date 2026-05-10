@@ -1,0 +1,51 @@
+---
+interface Props {
+  label: string;
+  variant?: 'default' | 'primary' | 'accent' | 'success' | 'warning' | 'error' | 'outline';
+  size?: 'sm' | 'md';
+  dot?: boolean;
+}
+
+const { label, variant = 'default', size = 'md', dot = false } = Astro.props;
+---
+
+<span class:list={['badge', `badge-${variant}`, `badge-${size}`]}>
+  {dot && <span class="badge-dot" aria-hidden="true" />}
+  {label}
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .badge-sm { font-size: var(--text-xs); padding: 0.2rem 0.6rem; }
+  .badge-md { font-size: var(--text-xs); padding: 0.3rem 0.75rem; }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+  }
+
+  /* Varianten */
+  .badge-default  { background-color: var(--color-surface-dark); color: var(--color-text-light); }
+  .badge-primary  { background-color: var(--color-primary); color: #fff; }
+  .badge-accent   { background-color: var(--color-accent); color: #fff; }
+  .badge-success  { background-color: #dcfce7; color: #16a34a; }
+  .badge-warning  { background-color: #fef9c3; color: #ca8a04; }
+  .badge-error    { background-color: #fee2e2; color: #dc2626; }
+  .badge-outline  {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-light);
+  }
+</style>

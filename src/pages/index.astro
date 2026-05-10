@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import SectionIntro from '../components/sections/SectionIntro.astro';
+---
+
+<BaseLayout
+  title="[PROJEKTNAME] — [KURZBESCHREIBUNG]"
+  description="[META-DESCRIPTION hier eintragen]"
+>
+  <Hero
+    headline="[PROJEKTNAME] kommt hier"
+    subline="Eine kurze Beschreibung des Projekts oder der Leistungen."
+    ctaLabel="Mehr erfahren"
+    ctaHref="/leistungen"
+    ctaSecondaryLabel="Kontakt aufnehmen"
+    ctaSecondaryHref="/kontakt"
+  />
+
+  <SectionIntro
+    eyebrow="Über uns"
+    title="Wer wir sind und was wir machen"
+    text="Hier kommt eine kurze Beschreibung des Unternehmens oder Projekts. Dieser Platzhalter wird pro Projekt angepasst."
+    ctaLabel="Mehr über uns"
+    ctaHref="/ueber-uns"
+    align="center"
+  />
+</BaseLayout>
