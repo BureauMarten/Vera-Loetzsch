@@ -44,6 +44,11 @@
   --max-width:          1460px;
   --max-width-text:     800px;
 
+  /* Seitenränder — identisch mit Header/Footer */
+  --padding-x:          10%;
+  --padding-x-tablet:   5%;
+  --padding-x-mobile:   1.5rem;
+
   /* Border Radius */
   --radius-sm:   0.375rem;
   --radius-md:   0.75rem;
@@ -141,6 +146,21 @@ a {
 
 a:hover {
   color: var(--color-text);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE PADDING
+   --padding-x passt sich automatisch an —
+   alle Seiten die var(--padding-x) nutzen
+   sind damit konsistent mit Header/Footer.
+   ═══════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  :root { --padding-x: var(--padding-x-tablet); }
+}
+
+@media (max-width: 768px) {
+  :root { --padding-x: var(--padding-x-mobile); }
 }
 
 /* ═══════════════════════════════════════
