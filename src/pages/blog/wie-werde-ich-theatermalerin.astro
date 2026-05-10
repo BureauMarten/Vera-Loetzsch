@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Wie werde ich Theatermaler*in? – Vera Lötzsch"
+  description="Ausbildung und Studium zur Theatermaler*in: zwei Wege in den Beruf, Voraussetzungen und Berufsaussichten."
+>
+  <PageHeader
+    title="Wie werde ich Theatermaler*in?"
+    breadcrumb={[
+      { label: 'Blog', href: '/blog' },
+      { label: 'Wie werde ich Theatermaler*in?', href: '/blog/wie-werde-ich-theatermalerin' },
+    ]}
+  />
+
+  <article class="blog-content">
+    <div class="tags">
+      <span class="tag">Bühnenmaler Ausbildung</span>
+      <span class="tag">HfBK Dresden</span>
+      <span class="tag">Szenische Malerei</span>
+      <span class="tag">Theatermaler</span>
+    </div>
+
+    <img
+      src="/images/10-2.jpg"
+      alt="Theatermaler*in – Ausbildung und Studium"
+      class="hero-img"
+    />
+
+    <div class="text">
+      <p>
+        Bemalte Theaterkulissen und den damit verbundenen Beruf gibt es vermutlich schon seit der Antike. Durch das enge Zusammenspiel aus Kunst und Handwerk erfreut sich der Beruf nach wie vor großer Beliebtheit.
+      </p>
+      <p>
+        In den meisten Fällen führt der Weg zum Berufsabschluss über eine klassische 3-jährige Ausbildung, welche überwiegend dual absolviert wird, also abwechselnd im Theaterbetrieb und der Berufsschule. Ein weiterer Weg führt über den Studiengang „Szenische Malerei" an der Hochschule für Bildende Künste in Dresden, welcher deutschlandweit einzigartig ist.
+      </p>
+      <p>
+        In beiden Fällen muss zur Zulassung eine Mappe mit einer Auswahl eigener künstlerischer Arbeiten vorgelegt werden, für das Studium folgt darauf noch ein Eignungstest. Die Regelstudienzeit beträgt 4 Jahre und erfordert ein berufsvorbereitendes Praktikum.
+      </p>
+      <p>
+        Es gibt aber auch ungelernte Theatermaler*innen, welche über einen Quereinstieg in der Branche Fuß gefasst haben. Die Mehrheit der Theatermaler*innen arbeiten als Angestellte in einem Malsaal eines Theaters oder einer (Film-)Produktionsfirma. Es gibt auch freischaffende Theatermaler*innen, welche für diverse Projekte deutschland-, europa- oder weltweit tätig sind.
+      </p>
+      <p>
+        Als Voraussetzungen für das Erlernen des Berufs zählen künstlerische Begabung, zeichnerisches Talent, ein Gespür für Formen und Farben und eine gewisse körperliche Fitness. Das Heben und Tragen von Bauteilen, Eimern und Werkzeugen sowie das stundenlange Stehen können sehr anstrengend sein und körperliche Beschwerden hervorrufen. Auch der Umgang mit Gefahrstoffen und Lösungsmitteln ist nicht auszuschließen.
+      </p>
+    </div>
+
+    <a href="/blog" class="back-link">← Zurück zum Blog</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-content {
+    max-width: var(--max-width-text);
+    margin: 0 auto;
+    padding: 2rem 1.5rem var(--spacing-section);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    background: rgba(50, 74, 109, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+    margin-bottom: 2.5rem;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.8;
+    font-size: var(--text-base);
+  }
+
+  .back-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .back-link:hover { text-decoration: underline; }
+</style>

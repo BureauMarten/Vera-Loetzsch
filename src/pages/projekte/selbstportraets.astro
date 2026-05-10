@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Selbstporträts – Vera Lötzsch"
+  description="Selbstporträts – Lithografie und Öl auf Papier."
+>
+  <PageHeader
+    title="Selbstporträts"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Selbstporträts', href: '/projekte/selbstportraets' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Freie Arbeiten</dd>
+      </dl>
+    </div>
+
+    <div class="galerie">
+      <figure>
+        <img src="/images/Freie-Arbeiten-web-04.jpg" alt="Selbstportrait – Lithografie 2017" />
+        <figcaption>Lithografie, 2017</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/Freie-Arbeiten-web-03.jpg" alt="Selbstportrait – Öl auf Papier 2023" loading="lazy" />
+        <figcaption>Selbstportrait, Öl auf Papier, 2023</figcaption>
+      </figure>
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content { max-width: var(--max-width); margin: 0 auto; padding: var(--spacing-section) 1.5rem; }
+  .meta { max-width: 600px; margin-bottom: 3rem; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.5rem; margin: 0; }
+  dt { font-weight: 600; color: var(--color-text-light); font-size: var(--text-sm); }
+  dd { margin: 0; color: var(--color-text); font-size: var(--text-sm); }
+  .galerie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+  figure { margin: 0; }
+  figure img { width: 100%; height: auto; display: block; border-radius: var(--radius-sm); margin-bottom: 0.5rem; }
+  figcaption { font-size: var(--text-sm); color: var(--color-text-light); }
+  .back-link { color: var(--color-primary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+  .back-link:hover { text-decoration: underline; }
+  @media (max-width: 600px) { .galerie { grid-template-columns: 1fr; } }
+</style>

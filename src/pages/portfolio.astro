@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+
+const projekte = [
+  {
+    slug: 'die-czardasfuerstin',
+    titel: 'Die Czardasfürstin',
+    kategorie: 'Theater & Bühnen',
+    bild: '/images/Die-Czardasfuerstin-Freiberg-web-01.jpg',
+    bildAlt: 'Die Czardasfürstin, Seebühne Kriebstein',
+  },
+  {
+    slug: 'don-pasquale',
+    titel: 'Don Pasquale',
+    kategorie: 'Theater & Bühnen',
+    bild: '/images/Einzelbilder-web-08.jpg',
+    bildAlt: 'Don Pasquale, Mittelsächsisches Theater',
+  },
+  {
+    slug: 'stoertebeker-festspiele-2024',
+    titel: 'Störtebeker-Festspiele 2024',
+    kategorie: 'Theater & Bühnen',
+    bild: '/images/Stoerti_1.jpeg',
+    bildAlt: 'Störtebeker-Festspiele 2024',
+  },
+  {
+    slug: 'die-taenzerin',
+    titel: 'Die Tänzerin',
+    kategorie: 'Fassaden & Wände',
+    bild: '/images/Fassade-Zeitz-web-01.jpg',
+    bildAlt: 'Die Tänzerin – Fassadenmalerei Zeitz',
+  },
+  {
+    slug: 'innerstaedtische-stromkaesten',
+    titel: 'Innerstädtische Stromkästen',
+    kategorie: 'Fassaden & Wände',
+    bild: '/images/Stromkaesten-Rudolstadt-web-02.jpg',
+    bildAlt: 'Bemalte Stromkästen, Rudolstadt',
+  },
+  {
+    slug: 'auftragsmalerei-privat',
+    titel: 'Auftragsmalerei (privat)',
+    kategorie: 'Fassaden & Wände',
+    bild: '/images/Fassaden-und-Wandmalerei-web-01.jpg',
+    bildAlt: 'Auftragsmalerei für privaten Haushalt, Dresden',
+  },
+  {
+    slug: 'der-verzweifelte-gustave-courbet',
+    titel: 'Der Verzweifelte – Gustave Courbet',
+    kategorie: 'Gemäldekopien',
+    bild: '/images/Courbet_Kopie-web.jpg',
+    bildAlt: 'Gemäldekopie nach Gustave Courbet',
+  },
+  {
+    slug: 'prop-jenny-saville',
+    titel: 'Prop – Jenny Saville',
+    kategorie: 'Gemäldekopien',
+    bild: '/images/Seville_Kopie-web.jpg',
+    bildAlt: 'Gemäldekopie nach Jenny Saville',
+  },
+  {
+    slug: 'grafiken',
+    titel: 'Grafiken',
+    kategorie: 'Freie Arbeiten',
+    bild: '/images/Freie-Arbeiten-web-01.jpg',
+    bildAlt: 'Grafiken',
+  },
+  {
+    slug: 'selbstportraets',
+    titel: 'Selbstporträts',
+    kategorie: 'Freie Arbeiten',
+    bild: '/images/Freie-Arbeiten-web-04.jpg',
+    bildAlt: 'Selbstporträts',
+  },
+  {
+    slug: 'nihilist',
+    titel: 'Nihilist',
+    kategorie: 'Freie Arbeiten',
+    bild: '/images/Freie-Arbeiten-web-05.jpg',
+    bildAlt: 'Nihilist – Lithografie',
+  },
+];
+
+const kategorien = ['Alle', ...new Set(projekte.map(p => p.kategorie))];
+---
+
+<BaseLayout
+  title="Portfolio – Vera Lötzsch"
+  description="Portfolio von Vera Lötzsch: Theatermalerei, Fassadenmalerei, Gemäldekopien und freie Arbeiten."
+>
+  <PageHeader
+    title="Portfolio"
+    breadcrumb={[{ label: 'Portfolio', href: '/portfolio' }]}
+  />
+
+  <div class="content">
+    <div class="filter-bar" role="tablist" aria-label="Kategorien filtern">
+      {kategorien.map((kat) => (
+        <button
+          class="filter-btn"
+          data-filter={kat === 'Alle' ? 'alle' : kat}
+          role="tab"
+          aria-selected={kat === 'Alle' ? 'true' : 'false'}
+        >
+          {kat}
+        </button>
+      ))}
+    </div>
+
+    <div class="project-grid" id="project-grid">
+      {projekte.map((p) => (
+        <a
+          href={`/projekte/${p.slug}`}
+          class="project-card"
+          data-kategorie={p.kategorie}
+        >
+          <div class="img-wrap">
+            <img src={p.bild} alt={p.bildAlt} loading="lazy" />
+          </div>
+          <div class="project-info">
+            <span class="kat-label">{p.kategorie}</span>
+            <h2>{p.titel}</h2>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.5rem var(--spacing-section);
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface);
+    transition: box-shadow var(--transition-normal);
+  }
+
+  .project-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .project-card.hidden {
+    display: none;
+  }
+
+  .img-wrap {
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-normal);
+  }
+
+  .project-card:hover .img-wrap img {
+    transform: scale(1.04);
+  }
+
+  .project-info {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .kat-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+  }
+
+  h2 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0.25rem 0 0;
+  }
+
+  @media (max-width: 900px) {
+    .project-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'alle';
+
+      btns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      cards.forEach(card => {
+        if (filter === 'alle' || card.dataset.kategorie === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Erste Schaltfläche aktiv setzen
+  btns[0]?.classList.add('active');
+</script>

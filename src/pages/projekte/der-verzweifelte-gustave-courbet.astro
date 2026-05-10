@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Der Verzweifelte – Gustave Courbet – Vera Lötzsch"
+  description="Gemäldekopie nach Gustave Courbet: Der Verzweifelte (Selbstbildnis), 2018. Öl auf Leinwand."
+>
+  <PageHeader
+    title="Der Verzweifelte – Gustave Courbet"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Der Verzweifelte – Gustave Courbet', href: '/projekte/der-verzweifelte-gustave-courbet' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Gemäldekopien</dd>
+        <dt>Vorlage</dt>
+        <dd>Gustave Courbet – Der Verzweifelte (Selbstbildnis)</dd>
+        <dt>Technik</dt>
+        <dd>Öl auf Leinwand</dd>
+        <dt>Jahr</dt>
+        <dd>2018</dd>
+        <dt>Foto</dt>
+        <dd>Reiner Eckel, Zeitz</dd>
+      </dl>
+      <p>Studienarbeit zum Thema Gemäldekopie nach Gustave Courbet: Der Verzweifelte (Selbstbildnis).</p>
+    </div>
+
+    <div class="galerie galerie--single">
+      <img src="/images/Courbet_Kopie-web.jpg" alt="Gemäldekopie nach Gustave Courbet – Der Verzweifelte" />
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content { max-width: var(--max-width); margin: 0 auto; padding: var(--spacing-section) 1.5rem; }
+  .meta { max-width: 600px; margin-bottom: 3rem; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.5rem; margin: 0 0 1.5rem; }
+  dt { font-weight: 600; color: var(--color-text-light); font-size: var(--text-sm); }
+  dd { margin: 0; color: var(--color-text); font-size: var(--text-sm); }
+  .meta p { color: var(--color-text); line-height: 1.7; margin: 0; }
+  .galerie--single img { max-width: 600px; width: 100%; height: auto; display: block; border-radius: var(--radius-sm); margin-bottom: 3rem; }
+  .back-link { color: var(--color-primary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+  .back-link:hover { text-decoration: underline; }
+</style>

@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Die Tänzerin – Vera Lötzsch"
+  description="Diplomarbeit 'Die Tänzerin', umgesetzt an einem Zeitzer Hausgiebel, inspiriert von Film 'Silvesterpunsch'. Teil von Open Space Zeitz."
+>
+  <PageHeader
+    title="Die Tänzerin"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Die Tänzerin', href: '/projekte/die-taenzerin' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Fassaden &amp; Wände</dd>
+        <dt>Ort</dt>
+        <dd>Zeitz, Sachsen-Anhalt</dd>
+        <dt>Zusammenarbeit</dt>
+        <dd>Theresa Schulz</dd>
+        <dt>Projekt</dt>
+        <dd>Stadtraumgalerie – Open Space Zeitz</dd>
+        <dt>Fotos</dt>
+        <dd>Reiner Eckel, Privatarchiv</dd>
+      </dl>
+      <p>
+        Diplomarbeit als Fassadenmalerei auf einem Hausgiebel in Zeitz. Motiv aus dem DEFA-Film „Silvesterpunsch" (1960) mit Schauspielerin Christel Bodenstein als Suse Lehmann. Das Motiv wurde von über 700 Zeitzer Bürger*innen per Online-Abstimmung gewählt, im Rahmen der Stadtraumgalerie des Projekts Open Space Zeitz.
+      </p>
+    </div>
+
+    <div class="galerie">
+      <img src="/images/Fassade-Zeitz-web-03.jpg" alt="Die Tänzerin – Fassade Zeitz, Gesamtansicht" />
+      <img src="/images/Fassade-Zeitz-web-01.jpg" alt="Die Tänzerin – Fassade Zeitz" loading="lazy" />
+      <img src="/images/Fassade-Zeitz-web-02.jpg" alt="Die Tänzerin – Fassade Zeitz, Detailansicht" loading="lazy" />
+      <img src="/images/IMAG1685-574x1024.jpg" alt="Die Tänzerin – Arbeitsfortschritt" loading="lazy" />
+      <img src="/images/IMAG1746-574x1024.jpg" alt="Die Tänzerin – Arbeitsfortschritt" loading="lazy" />
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-section) 1.5rem;
+  }
+
+  .meta { max-width: 600px; margin-bottom: 3rem; }
+
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.5rem; margin: 0 0 1.5rem; }
+  dt { font-weight: 600; color: var(--color-text-light); font-size: var(--text-sm); }
+  dd { margin: 0; color: var(--color-text); font-size: var(--text-sm); }
+  .meta p { color: var(--color-text); line-height: 1.7; margin: 0; }
+
+  .galerie {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .galerie img:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .galerie img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  .back-link { color: var(--color-primary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+  .back-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) { .galerie { grid-template-columns: 1fr; } .galerie img:first-child { grid-column: 1; } }
+</style>

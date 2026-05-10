@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Was machen eigentlich Theatermaler*innen? – Vera Lötzsch"
+  description="Theatermaler*innen sind für die malerische Umsetzung des Bühnenbildes verantwortlich. Erfahre mehr über diesen Beruf."
+>
+  <PageHeader
+    title="Was machen eigentlich Theatermaler*innen?"
+    breadcrumb={[
+      { label: 'Blog', href: '/blog' },
+      { label: 'Was machen eigentlich Theatermaler*innen?', href: '/blog/was-machen-eigentlich-theatermalerinnen' },
+    ]}
+  />
+
+  <article class="blog-content">
+    <div class="tags">
+      <span class="tag">Bühnenbild</span>
+      <span class="tag">Bühnenmalerei</span>
+      <span class="tag">Kulissenmalerei</span>
+      <span class="tag">Theatermalerei</span>
+    </div>
+
+    <img
+      src="/images/9-4.jpg"
+      alt="Theatermalerei – Bühnenmalerei"
+      class="hero-img"
+    />
+
+    <div class="text">
+      <p>
+        Wer schon einmal in einer Theater- oder Opernaufführung war, hat sich vielleicht gefragt, wie eigentlich die Kulissen hergestellt werden. Nicht immer, aber in den meisten Fällen haben Theatermaler*innen bzw. Bühnenmaler*innen daran mitgewirkt. Sie sind für die malerische Umsetzung des Bühnenbildes verantwortlich und setzen mit ihrem Können beeindruckende Akzente und erzeugen optische Illusionen.
+      </p>
+      <p>
+        So werden neben großen Stoffleinwänden, den sogenannten Bühnenprospekten, auch Holz- und Metallelemente bemalt sowie plastische Requisiten und Bühnenteile.
+      </p>
+      <p>
+        In den allermeisten Fällen wird das Bühnenbild nicht von den Theatermaler*innen selbst entworfen. Das ist die Aufgabe der Bühnenbildner*innen. Diese geben ihr Bühnenmodell in den Werkstätten ab und stellen ihre Intentionen dar. Doch bevor die Theatermaler*innen ihr Werk verrichten dürfen, muss das Bühnenbild natürlich erst in den Holz- und Metallwerkstätten konstruiert und hergestellt werden und gegebenenfalls von Theaterplastiker*innen bearbeitet werden.
+      </p>
+      <p>
+        Anschließend gelangt es in den Malsaal – so heißt der große Raum, in dem die Kulissen bemalt werden. Dort bearbeiten die Kunsthandwerker*innen mit großen Werkzeugen und Pinseln die Bühnenelemente und versuchen, die Ideen der Bühnenbildner*innen stilsicher umzusetzen. Dazu ist auch eine Grundkenntnis an historischen Epochen und Stilmerkmalen notwendig.
+      </p>
+      <p>
+        Theater- und Bühnenmaler*innen arbeiten aber nicht nur für Theater-, Opern- und Ballettveranstaltungen sondern auch für Filmproduktionen oder Freiluftveranstaltungen wie Festivals und Festspiele, sowie als Dekorationsmaler*innen für den öffentlichen oder privaten Raum.
+      </p>
+    </div>
+
+    <a href="/blog" class="back-link">← Zurück zum Blog</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-content {
+    max-width: var(--max-width-text);
+    margin: 0 auto;
+    padding: 2rem 1.5rem var(--spacing-section);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    background: rgba(50, 74, 109, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+    margin-bottom: 2.5rem;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.8;
+    font-size: var(--text-base);
+  }
+
+  .back-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .back-link:hover { text-decoration: underline; }
+</style>

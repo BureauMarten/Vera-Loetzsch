@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Innerstädtische Stromkästen – Vera Lötzsch"
+  description="Bemalte Stromkästen im Gebiet der Altstadt in Rudolstadt, Thüringen."
+>
+  <PageHeader
+    title="Innerstädtische Stromkästen"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Innerstädtische Stromkästen', href: '/projekte/innerstaedtische-stromkaesten' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Fassaden &amp; Wände</dd>
+        <dt>Ort</dt>
+        <dd>Rudolstadt, Thüringen</dd>
+      </dl>
+      <p>Bemalte Stromkästen im Gebiet der Altstadt in Rudolstadt.</p>
+    </div>
+
+    <div class="galerie">
+      {[
+        { src: '/images/Stromkaesten-Rudolstadt-web-02.jpg', alt: 'Bemalter Stromkasten Rudolstadt 1' },
+        { src: '/images/Stromkaesten-Rudolstadt-web-03.jpg', alt: 'Bemalter Stromkasten Rudolstadt 2' },
+        { src: '/images/Stromkaesten-Rudolstadt-web-04.jpg', alt: 'Bemalter Stromkasten Rudolstadt 3' },
+        { src: '/images/Stromkaesten-Rudolstadt-web-06.jpg', alt: 'Bemalter Stromkasten Rudolstadt 4' },
+        { src: '/images/Stromkaesten-Rudolstadt-web-07.jpg', alt: 'Bemalter Stromkasten Rudolstadt 5' },
+        { src: '/images/Stromkaesten-Rudolstadt-web-08.jpg', alt: 'Bemalter Stromkasten Rudolstadt 6' },
+      ].map(b => (
+        <img src={b.src} alt={b.alt} loading="lazy" />
+      ))}
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content { max-width: var(--max-width); margin: 0 auto; padding: var(--spacing-section) 1.5rem; }
+  .meta { max-width: 600px; margin-bottom: 3rem; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.5rem; margin: 0 0 1.5rem; }
+  dt { font-weight: 600; color: var(--color-text-light); font-size: var(--text-sm); }
+  dd { margin: 0; color: var(--color-text); font-size: var(--text-sm); }
+  .meta p { color: var(--color-text); line-height: 1.7; margin: 0; }
+  .galerie { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+  .galerie img { width: 100%; height: auto; display: block; border-radius: var(--radius-sm); }
+  .back-link { color: var(--color-primary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+  .back-link:hover { text-decoration: underline; }
+  @media (max-width: 600px) { .galerie { grid-template-columns: 1fr; } }
+</style>

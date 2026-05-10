@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const bilder = [
+  { src: '/images/Die-Czardasfuerstin-Freiberg-web-01.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 1' },
+  { src: '/images/Die-Czardasfuerstin-Freiberg-web-02.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 2' },
+  { src: '/images/Die-Czardasfuerstin-Freiberg-web-03.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 3' },
+  { src: '/images/Die-Czardasfuerstin-Freiberg-web-04.jpg', alt: 'Die Czardasfürstin – Seebühne Kriebstein 4' },
+];
+---
+
+<BaseLayout
+  title="Die Czardasfürstin – Vera Lötzsch"
+  description="Malerische Umsetzung des Bühnenbildes für Die Czardasfürstin auf der Seebühne Kriebstein, 2021."
+>
+  <PageHeader
+    title="Die Czardasfürstin"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Die Czardasfürstin', href: '/projekte/die-czardasfuerstin' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Theater &amp; Bühnen</dd>
+        <dt>Institution</dt>
+        <dd>Mittelsächsisches Theater Freiberg-Döbeln</dd>
+        <dt>Bühnenbildentwurf</dt>
+        <dd>Tilo Staudte</dd>
+        <dt>Fotos</dt>
+        <dd>René Jungnickel, Privatarchiv</dd>
+        <dt>Jahr</dt>
+        <dd>2021</dd>
+      </dl>
+      <p>Malerische Umsetzung des Bühnenbildes für &bdquo;Die Czardasfürstin&ldquo; auf der Seebühne Kriebstein, 2021.</p>
+    </div>
+
+    <div class="galerie">
+      {bilder.map(b => (
+        <img src={b.src} alt={b.alt} loading="lazy" />
+      ))}
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-section) 1.5rem;
+  }
+
+  .meta {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1.5rem;
+    margin: 0 0 1.5rem;
+  }
+
+  dt {
+    font-weight: 600;
+    color: var(--color-text-light);
+    font-size: var(--text-sm);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--text-sm);
+  }
+
+  .meta p {
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .galerie {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .galerie img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  .back-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .galerie { grid-template-columns: 1fr; }
+  }
+</style>

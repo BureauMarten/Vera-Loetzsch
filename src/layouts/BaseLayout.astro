@@ -23,8 +23,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const defaultNavItems = [
   { label: 'Leistungen', href: '/leistungen' },
-  { label: 'Projekte', href: '/projekte' },
-  { label: 'Über uns', href: '/ueber-uns' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Über', href: '/ueber' },
   { label: 'Kontakt', href: '/kontakt' },
 ];
 ---
@@ -57,12 +58,12 @@ const defaultNavItems = [
   </head>
   <body>
     <CookieBanner />
-    <Header logo="[LOGO]" navItems={defaultNavItems} />
+    <Header logo="Vera Lötzsch" navItems={defaultNavItems} />
     <main>
       <slot />
     </main>
     <Footer
-      companyName="[FIRMENNAME]"
+      companyName="Vera Lötzsch"
       navItems={defaultNavItems}
     />
   </body>

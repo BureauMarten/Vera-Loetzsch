@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Über – Vera Lötzsch"
+  description="Vera Lötzsch – Freiberufliche Bühnen- und Theatermalerin aus Leipzig. Lebenslauf und künstlerischer Werdegang."
+>
+  <PageHeader
+    title="Über"
+    breadcrumb={[{ label: 'Über', href: '/ueber' }]}
+  />
+
+  <div class="content">
+    <div class="portrait">
+      <img
+        src="/images/Vera_2.jpeg"
+        alt="Vera Lötzsch"
+        class="portrait-img"
+      />
+    </div>
+
+    <div class="bio">
+      <h2>Vita</h2>
+
+      <table class="cv-table">
+        <tbody>
+          <tr>
+            <td class="year">1996</td>
+            <td>Geboren in Freiberg, Sachsen</td>
+          </tr>
+          <tr>
+            <td class="year">2014</td>
+            <td>Abitur – Geschwister-Scholl-Gymnasium Freiberg</td>
+          </tr>
+          <tr>
+            <td class="year">2014–2015</td>
+            <td>Ausbildung in der Malerwerkstatt des Mittelsächsischen Theaters Freiberg-Döbeln</td>
+          </tr>
+          <tr>
+            <td class="year">2015–2019</td>
+            <td>Diplom in Theatermalerei – Hochschule für Bildende Künste Dresden (HfBK)<br />
+              <span class="detail">Praktische Semester: Theater Vorpommern Greifswald, Mittelsächsisches Theater Freiberg-Döbeln, Splinter Scenery (UK)</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="year">2019–2021</td>
+            <td>Theatermalerin</td>
+          </tr>
+          <tr>
+            <td class="year">2021–2023</td>
+            <td>Leiterin der Malerwerkstatt</td>
+          </tr>
+          <tr>
+            <td class="year">seit 2024</td>
+            <td>Künstlerische Mitarbeiterin im Forschungsprojekt „Rescene" (nachhaltige textile Bühnensysteme) an der HfBK Dresden</td>
+          </tr>
+          <tr>
+            <td class="year">seit 2024</td>
+            <td>Freiberufliche Tätigkeit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-section) 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .portrait-img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin: 0 0 2rem;
+  }
+
+  .cv-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .cv-table tr {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cv-table td {
+    padding: 1rem 0;
+    vertical-align: top;
+    color: var(--color-text);
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+
+  .year {
+    min-width: 8rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    padding-right: 2rem;
+    white-space: nowrap;
+  }
+
+  .detail {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .portrait-img {
+      max-width: 300px;
+    }
+  }
+</style>

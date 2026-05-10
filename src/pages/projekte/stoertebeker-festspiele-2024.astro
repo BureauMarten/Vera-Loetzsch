@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const bilder = [
+  { src: '/images/Stoerti_1.jpeg', alt: 'Störtebeker-Festspiele 2024 – Bühnenbild' },
+  { src: '/images/Vera_2-1-e1721763383895.jpeg', alt: 'Störtebeker-Festspiele 2024 – Malarbeit' },
+  { src: '/images/Vera_2.jpeg', alt: 'Störtebeker-Festspiele 2024' },
+  { src: '/images/Vera_3.jpeg', alt: 'Störtebeker-Festspiele 2024' },
+  { src: '/images/12314d25-8505-4ca7-88bb-e017d9a262f2.jpg', alt: 'Störtebeker-Festspiele 2024 – Übersicht' },
+];
+---
+
+<BaseLayout
+  title="Störtebeker-Festspiele 2024 – Vera Lötzsch"
+  description="Bühnenmalerische Arbeiten für die Störtebeker-Festspiele 2024."
+>
+  <PageHeader
+    title="Störtebeker-Festspiele 2024"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Störtebeker-Festspiele 2024', href: '/projekte/stoertebeker-festspiele-2024' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Theater &amp; Bühnen</dd>
+        <dt>Jahr</dt>
+        <dd>2024</dd>
+      </dl>
+    </div>
+
+    <div class="galerie">
+      {bilder.map(b => (
+        <img src={b.src} alt={b.alt} loading="lazy" />
+      ))}
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-section) 1.5rem;
+  }
+
+  .meta { max-width: 600px; margin-bottom: 3rem; }
+
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.5rem; margin: 0; }
+  dt { font-weight: 600; color: var(--color-text-light); font-size: var(--text-sm); }
+  dd { margin: 0; color: var(--color-text); font-size: var(--text-sm); }
+
+  .galerie {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .galerie img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  .back-link { color: var(--color-primary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+  .back-link:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) { .galerie { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .galerie { grid-template-columns: 1fr; } }
+</style>

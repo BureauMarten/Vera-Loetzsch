@@ -1,28 +1,175 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
-import SectionIntro from '../components/sections/SectionIntro.astro';
 ---
 
 <BaseLayout
-  title="[PROJEKTNAME] — [KURZBESCHREIBUNG]"
-  description="[META-DESCRIPTION hier eintragen]"
+  title="Vera Lötzsch – Bühnen- & Theatermalerin"
+  description="Freiberufliche Bühnen- und Theatermalerin aus Leipzig. Theatermalerei, Fassadenmalerei, Wandmalerei und Gemäldekopien."
 >
-  <Hero
-    headline="[PROJEKTNAME] kommt hier"
-    subline="Eine kurze Beschreibung des Projekts oder der Leistungen."
-    ctaLabel="Mehr erfahren"
-    ctaHref="/leistungen"
-    ctaSecondaryLabel="Kontakt aufnehmen"
-    ctaSecondaryHref="/kontakt"
-  />
+  <section class="hero">
+    <img
+      src="/images/1460x600_01.jpg"
+      alt="Seebühne Kriebstein – Mittelsächsisches Theater Freiberg-Döbeln"
+      class="hero-img"
+    />
+    <div class="hero-overlay">
+      <p class="hero-caption">Foto: Mittelsächsisches Theater Freiberg-Döbeln</p>
+    </div>
+  </section>
 
-  <SectionIntro
-    eyebrow="Über uns"
-    title="Wer wir sind und was wir machen"
-    text="Hier kommt eine kurze Beschreibung des Unternehmens oder Projekts. Dieser Platzhalter wird pro Projekt angepasst."
-    ctaLabel="Mehr über uns"
-    ctaHref="/ueber-uns"
-    align="center"
-  />
+  <section class="portfolio-teaser">
+    <div class="container">
+      <h2>Portfolio</h2>
+      <div class="project-grid">
+        <a href="/projekte/die-czardasfuerstin" class="project-card">
+          <div class="project-img-wrap">
+            <img src="/images/Die-Czardasfuerstin-Freiberg-web-01.jpg" alt="Die Czardasfürstin, Seebühne Kriebstein" />
+          </div>
+          <div class="project-info">
+            <h3>Die Czardasfürstin</h3>
+            <p>Mittelsächsisches Theater Freiberg-Döbeln</p>
+          </div>
+        </a>
+        <a href="/projekte/der-verzweifelte-gustave-courbet" class="project-card">
+          <div class="project-img-wrap">
+            <img src="/images/Courbet_Kopie-web.jpg" alt="Gemäldekopie nach Gustave Courbet" />
+          </div>
+          <div class="project-info">
+            <h3>Gemäldekopie</h3>
+            <p>Gustave Courbet – Der Verzweifelte</p>
+          </div>
+        </a>
+        <a href="/projekte/die-taenzerin" class="project-card">
+          <div class="project-img-wrap">
+            <img src="/images/Fassade-Zeitz-web-01.jpg" alt="Die Tänzerin – Fassadenmalerei Zeitz" />
+          </div>
+          <div class="project-info">
+            <h3>Die Tänzerin</h3>
+            <p>Fassadenmalerei, Zeitz</p>
+          </div>
+        </a>
+      </div>
+      <a href="/portfolio" class="btn">Alle Projekte ansehen</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 400px;
+    overflow: hidden;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+  }
+
+  .hero-caption {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+  }
+
+  .portfolio-teaser {
+    padding: var(--spacing-section) 0;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .project-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .project-img-wrap {
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-normal);
+  }
+
+  .project-card:hover img {
+    transform: scale(1.03);
+  }
+
+  .project-info {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .project-info h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 0.25rem;
+  }
+
+  .project-info p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: background-color var(--transition-fast);
+  }
+
+  .btn:hover {
+    background-color: var(--color-primary-dark);
+  }
+
+  @media (max-width: 768px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero {
+      height: 50vh;
+    }
+  }
+</style>

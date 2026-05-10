@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="Auftragsmalerei (privat) – Vera Lötzsch"
+  description="Auftragsmalerei für privaten Haushalt, Dresden 2018."
+>
+  <PageHeader
+    title="Auftragsmalerei (privat)"
+    breadcrumb={[
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Auftragsmalerei (privat)', href: '/projekte/auftragsmalerei-privat' },
+    ]}
+  />
+
+  <div class="projekt-content">
+    <div class="meta">
+      <dl>
+        <dt>Kategorie</dt>
+        <dd>Fassaden &amp; Wände</dd>
+        <dt>Ort</dt>
+        <dd>Dresden</dd>
+        <dt>Jahr</dt>
+        <dd>2018</dd>
+      </dl>
+      <p>Auftragsmalerei für einen privaten Haushalt in Dresden.</p>
+    </div>
+
+    <div class="galerie">
+      <img src="/images/Fassaden-und-Wandmalerei-web-01.jpg" alt="Auftragsmalerei privat, Dresden 1" />
+      <img src="/images/Fassaden-und-Wandmalerei-web-02.jpg" alt="Auftragsmalerei privat, Dresden 2" loading="lazy" />
+    </div>
+
+    <div class="nav-links">
+      <a href="/portfolio" class="back-link">← Zurück zum Portfolio</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .projekt-content { max-width: var(--max-width); margin: 0 auto; padding: var(--spacing-section) 1.5rem; }
+  .meta { max-width: 600px; margin-bottom: 3rem; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1.5rem; margin: 0 0 1.5rem; }
+  dt { font-weight: 600; color: var(--color-text-light); font-size: var(--text-sm); }
+  dd { margin: 0; color: var(--color-text); font-size: var(--text-sm); }
+  .meta p { color: var(--color-text); line-height: 1.7; margin: 0; }
+  .galerie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 3rem; }
+  .galerie img { width: 100%; height: auto; display: block; border-radius: var(--radius-sm); }
+  .back-link { color: var(--color-primary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; }
+  .back-link:hover { text-decoration: underline; }
+  @media (max-width: 600px) { .galerie { grid-template-columns: 1fr; } }
+</style>
