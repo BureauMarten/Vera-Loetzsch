@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import imgHero from '../../assets/images/9-4.jpg';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -35,8 +37,8 @@ const jsonLd = {
       <span class="tag">Theatermalerei</span>
     </div>
 
-    <img
-      src="/images/9-4.jpg"
+    <Image
+      src={imgHero}
       alt="Theatermalerei – Bühnenmalerei"
       class="hero-img"
     />
