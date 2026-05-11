@@ -43,7 +43,7 @@ const { title, subtitle, breadcrumb } = Astro.props;
   .page-header-inner {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 8%;
+    padding: 0 var(--padding-x);
   }
 
   .breadcrumb {
@@ -82,12 +82,7 @@ const { title, subtitle, breadcrumb } = Astro.props;
     line-height: 1.5;
   }
 
-  @media (max-width: 1024px) {
-    .page-header-inner { padding: 0 5%; }
-  }
-
   @media (max-width: 767px) {
-    .page-header-inner { padding: 0 1.5rem; }
     .page-header { padding: 2rem 0 1.5rem; }
   }
 </style>

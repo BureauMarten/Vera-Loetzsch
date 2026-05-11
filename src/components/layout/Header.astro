@@ -50,10 +50,11 @@ const navItems = [
 
 <div class="mobile-overlay" id="mobile-overlay"></div>
 
-<nav class="nav-mobile" id="mobile-menu" aria-hidden="true">
+<nav class="nav-mobile" id="mobile-menu" aria-hidden="true" aria-label="Mobile Navigation">
   {[...navItems, { label: 'Kontakt', href: '/kontakt' }].map(item => (
     <a
       href={item.href}
+      tabindex="-1"
       class:list={['nav-link', {
         active: item.href === '/'
           ? currentPath === '/'
@@ -64,8 +65,8 @@ const navItems = [
     </a>
   ))}
   <div class="mobile-footer-links">
-    <a href="/impressum">Impressum</a>
-    <a href="/datenschutz">Datenschutz</a>
+    <a href="/impressum" tabindex="-1">Impressum</a>
+    <a href="/datenschutz" tabindex="-1">Datenschutz</a>
   </div>
 </nav>
 
@@ -284,12 +285,15 @@ const navItems = [
   const overlay = document.getElementById('mobile-overlay');
   const header = document.getElementById('site-header');
 
+  const menuLinks = menu?.querySelectorAll<HTMLElement>('a');
+
   function open() {
     toggle?.classList.add('open');
     menu?.classList.add('open');
     overlay?.classList.add('open');
     menu?.setAttribute('aria-hidden', 'false');
     toggle?.setAttribute('aria-expanded', 'true');
+    menuLinks?.forEach(a => a.removeAttribute('tabindex'));
     document.body.style.overflow = 'hidden';
   }
 
@@ -299,6 +303,7 @@ const navItems = [
     overlay?.classList.remove('open');
     menu?.setAttribute('aria-hidden', 'true');
     toggle?.setAttribute('aria-expanded', 'false');
+    menuLinks?.forEach(a => a.setAttribute('tabindex', '-1'));
     document.body.style.overflow = '';
   }
 

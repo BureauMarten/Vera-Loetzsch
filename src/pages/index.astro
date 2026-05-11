@@ -61,13 +61,20 @@ const slides = [
   <div class="slider-wrapper">
     <div class="slider" id="slider">
       <div class="track" id="track">
-        {slides.map((s) => (
+        {slides.map((s, i) => (
           <div class="slide">
-            <Image src={s.src} alt={s.alt} loading="lazy" />
+            <Image
+              src={s.src}
+              alt={s.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'auto'}
+              widths={[800, 1200, 1460]}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 1460px"
+            />
             {s.credit && (
               <p class="slide-credit">{s.credit}</p>
             )}
-            {s.href && <a href={s.href} class="slide-btn">{s.label} →</a>}
+            {s.href && <a href={s.href} class="slide-btn" aria-label={`${s.label} ansehen`}>{s.label} →</a>}
           </div>
         ))}
       </div>
@@ -102,6 +109,7 @@ const slides = [
     flex: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 2rem var(--padding-x);
   }
 
@@ -109,7 +117,6 @@ const slides = [
     position: relative;
     width: 100%;
     max-width: var(--max-width);
-    margin: 0 auto;
     height: var(--slider-height);
     overflow: hidden;
     border-radius: var(--radius-md);

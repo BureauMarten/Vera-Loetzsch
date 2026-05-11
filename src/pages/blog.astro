@@ -1,19 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/layout/PageHeader.astro';
+import { Image } from 'astro:assets';
+import img94 from '../assets/images/9-4.jpg';
+import img102 from '../assets/images/10-2.jpg';
 
 const posts = [
   {
     slug: 'was-machen-eigentlich-theatermalerinnen',
     titel: 'Was machen eigentlich Theatermaler*innen?',
-    bild: '/images/9-4.jpg',
+    bild: img94,
     bildAlt: 'Theatermalerei – Bühnenmalerei',
     tags: ['Bühnenbild', 'Bühnenmalerei', 'Kulissenmalerei', 'Theatermalerei'],
   },
   {
     slug: 'wie-werde-ich-theatermalerin',
     titel: 'Wie werde ich Theatermaler*in?',
-    bild: '/images/10-2.jpg',
+    bild: img102,
     bildAlt: 'Theatermaler*in – Ausbildung und Studium',
     tags: ['Bühnenmaler Ausbildung', 'HfBK Dresden', 'Szenische Malerei', 'Theatermaler'],
   },
@@ -34,7 +37,7 @@ const posts = [
       {posts.map(p => (
         <a href={`/blog/${p.slug}`} class="post-card">
           <div class="img-wrap">
-            <img src={p.bild} alt={p.bildAlt} loading="lazy" />
+            <Image src={p.bild} alt={p.bildAlt} loading="lazy" />
           </div>
           <div class="post-info">
             <div class="tags">
